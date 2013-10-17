@@ -40,6 +40,7 @@ public class BookDetail {
 
 	public BookDetail() {
 		initialize();
+		//test
 	}
 
 	/**
