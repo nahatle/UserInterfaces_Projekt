@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import view.BookDetail;
+import view.BookMaster;
 import domain.Copy;
 import domain.Customer;
 import domain.IllegalLoanOperationException;
@@ -25,12 +26,12 @@ import domain.Shelf;
 
 public class LibraryApp {
 	public static void main(String[] args) throws Exception {
-		Library library = new Library();
+		final Library library = new Library();
 		initLibrary(library);
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						BookDetail window = new BookDetail();
+						BookMaster window = new BookMaster(library);
 						window.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();

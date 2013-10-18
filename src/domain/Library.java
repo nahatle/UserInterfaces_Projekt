@@ -10,6 +10,8 @@ public class Library {
 	private List<Loan> loans;
 	private List<Book> books;
 
+
+
 	public Library() {
 		copies = new ArrayList<Copy>();
 		customers = new ArrayList<Customer>();
@@ -136,5 +138,6 @@ public class Library {
 	public List<Customer> getCustomers() {
 		return customers;
 	}
+
 
 }
