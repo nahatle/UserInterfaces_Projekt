@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -47,21 +48,21 @@ public class BookMaster {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane);
 		
-		JPanel Tab1 = new JPanel();
-		tabbedPane.addTab("B\u00FCcher", null, Tab1, null);
-		GridBagLayout gbl_Tab1 = new GridBagLayout();
-		gbl_Tab1.columnWidths = new int[]{0, 0};
-		gbl_Tab1.rowHeights = new int[]{0, 0};
-		gbl_Tab1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_Tab1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		Tab1.setLayout(gbl_Tab1);
+		JPanel bookTabPanel = new JPanel();
+		tabbedPane.addTab("B\u00FCcher", null, bookTabPanel, null);
+		GridBagLayout gbl_bookTabPanel = new GridBagLayout();
+		gbl_bookTabPanel.columnWidths = new int[]{300, 0};
+		gbl_bookTabPanel.rowHeights = new int[]{0, 0};
+		gbl_bookTabPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_bookTabPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		bookTabPanel.setLayout(gbl_bookTabPanel);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
-		Tab1.add(panel_1, gbc_panel_1);
+		bookTabPanel.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0};
 		gbl_panel_1.rowHeights = new int[]{50, 0, 0};
@@ -69,34 +70,34 @@ public class BookMaster {
 		gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setMaximumSize(new Dimension(50, 200));
-		panel_4.setBorder(new TitledBorder(null, "Inventar Statistiken", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.fill = GridBagConstraints.BOTH;
-		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_4.gridx = 0;
-		gbc_panel_4.gridy = 0;
-		panel_1.add(panel_4, gbc_panel_4);
-		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{431, 0};
-		gbl_panel_4.rowHeights = new int[]{24, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_4.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_4.setLayout(gbl_panel_4);
+		JPanel inventoryStats = new JPanel();
+		inventoryStats.setMaximumSize(new Dimension(50, 200));
+		inventoryStats.setBorder(new TitledBorder(null, "Inventar Statistiken", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_inventoryStats = new GridBagConstraints();
+		gbc_inventoryStats.fill = GridBagConstraints.BOTH;
+		gbc_inventoryStats.insets = new Insets(0, 0, 5, 0);
+		gbc_inventoryStats.gridx = 0;
+		gbc_inventoryStats.gridy = 0;
+		panel_1.add(inventoryStats, gbc_inventoryStats);
+		GridBagLayout gbl_inventoryStats = new GridBagLayout();
+		gbl_inventoryStats.columnWidths = new int[]{300, 0};
+		gbl_inventoryStats.rowHeights = new int[]{24, 0};
+		gbl_inventoryStats.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_inventoryStats.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		inventoryStats.setLayout(gbl_inventoryStats);
 		
-		JPanel panel_2 = new JPanel();
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 0;
-		gbc_panel_2.gridy = 0;
-		panel_4.add(panel_2, gbc_panel_2);
-		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{5, 0, 0, 0, 0, 40, 8, 45, 109, 0};
-		gbl_panel_2.rowHeights = new int[]{10, 0, 0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel_2.setLayout(gbl_panel_2);
+		JPanel booksAndCopies = new JPanel();
+		GridBagConstraints gbc_booksAndCopies = new GridBagConstraints();
+		gbc_booksAndCopies.fill = GridBagConstraints.BOTH;
+		gbc_booksAndCopies.gridx = 0;
+		gbc_booksAndCopies.gridy = 0;
+		inventoryStats.add(booksAndCopies, gbc_booksAndCopies);
+		GridBagLayout gbl_booksAndCopies = new GridBagLayout();
+		gbl_booksAndCopies.columnWidths = new int[]{5, 0, 40, 0, 0, 40, 8, 45, 109, 0};
+		gbl_booksAndCopies.rowHeights = new int[]{10, 0, 0, 0};
+		gbl_booksAndCopies.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_booksAndCopies.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		booksAndCopies.setLayout(gbl_booksAndCopies);
 		
 		JLabel lblAnzahlBcher = new JLabel("Anzahl B\u00FCcher: ");
 		lblAnzahlBcher.setHorizontalAlignment(SwingConstants.LEFT);
@@ -105,7 +106,7 @@ public class BookMaster {
 		gbc_lblAnzahlBcher.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnzahlBcher.gridx = 1;
 		gbc_lblAnzahlBcher.gridy = 1;
-		panel_2.add(lblAnzahlBcher, gbc_lblAnzahlBcher);
+		booksAndCopies.add(lblAnzahlBcher, gbc_lblAnzahlBcher);
 		lblAnzahlBcher.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		
@@ -115,7 +116,7 @@ public class BookMaster {
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 2;
 		gbc_lblNewLabel.gridy = 1;
-		panel_2.add(lblNewLabel, gbc_lblNewLabel);
+		booksAndCopies.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JLabel lblAnzahlBcher2 = new JLabel("Anzahl Exemplare: ");
 		GridBagConstraints gbc_lblAnzahlBcher2 = new GridBagConstraints();
@@ -123,7 +124,7 @@ public class BookMaster {
 		gbc_lblAnzahlBcher2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnzahlBcher2.gridx = 3;
 		gbc_lblAnzahlBcher2.gridy = 1;
-		panel_2.add(lblAnzahlBcher2, gbc_lblAnzahlBcher2);
+		booksAndCopies.add(lblAnzahlBcher2, gbc_lblAnzahlBcher2);
 		
 		
 		JLabel lblNewLabel2 = new JLabel(new Integer(library.getCopies().size()).toString());
@@ -132,34 +133,59 @@ public class BookMaster {
 		gbc_lblNewLabel2.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblNewLabel2.gridx = 4;
 		gbc_lblNewLabel2.gridy = 1;
-		panel_2.add(lblNewLabel2, gbc_lblNewLabel2);
+		booksAndCopies.add(lblNewLabel2, gbc_lblNewLabel2);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-		gbc_panel_5.fill = GridBagConstraints.BOTH;
-		gbc_panel_5.gridx = 0;
-		gbc_panel_5.gridy = 1;
-		panel_1.add(panel_5, gbc_panel_5);
-		GridBagLayout gbl_panel_5 = new GridBagLayout();
-		gbl_panel_5.columnWidths = new int[]{0, 0};
-		gbl_panel_5.rowHeights = new int[]{0, 0};
-		gbl_panel_5.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_5.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panel_5.setLayout(gbl_panel_5);
+		JPanel bookInventory = new JPanel();
+		bookInventory.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_bookInventory = new GridBagConstraints();
+		gbc_bookInventory.fill = GridBagConstraints.BOTH;
+		gbc_bookInventory.gridx = 0;
+		gbc_bookInventory.gridy = 1;
+		panel_1.add(bookInventory, gbc_bookInventory);
+		GridBagLayout gbl_bookInventory = new GridBagLayout();
+		gbl_bookInventory.columnWidths = new int[]{0, 100};
+		gbl_bookInventory.rowHeights = new int[]{98, 0, 0};
+		gbl_bookInventory.columnWeights = new double[]{1.0, 0.0};
+		gbl_bookInventory.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		bookInventory.setLayout(gbl_bookInventory);
 		
-		JPanel panel_3 = new JPanel();
-		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.fill = GridBagConstraints.BOTH;
-		gbc_panel_3.gridx = 0;
-		gbc_panel_3.gridy = 0;
-		panel_5.add(panel_3, gbc_panel_3);
-		GridBagLayout gbl_panel_3 = new GridBagLayout();
-		gbl_panel_3.columnWidths = new int[]{0};
-		gbl_panel_3.rowHeights = new int[]{0};
-		gbl_panel_3.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{Double.MIN_VALUE};
-		panel_3.setLayout(gbl_panel_3);
+		JPanel bookSearch = new JPanel();
+		GridBagConstraints gbc_bookSearch = new GridBagConstraints();
+		gbc_bookSearch.insets = new Insets(0, 0, 5, 0);
+		gbc_bookSearch.fill = GridBagConstraints.BOTH;
+		gbc_bookSearch.gridx = 0;
+		gbc_bookSearch.gridy = 0;
+		bookInventory.add(bookSearch, gbc_bookSearch);
+		GridBagLayout gbl_bookSearch = new GridBagLayout();
+		gbl_bookSearch.columnWidths = new int[]{0, 0, 0, 0, 20, 0};
+		gbl_bookSearch.rowHeights = new int[]{0, 0};
+		gbl_bookSearch.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_bookSearch.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		bookSearch.setLayout(gbl_bookSearch);
+		
+		JLabel lblBuchSuchen = new JLabel("Buch suchen:");
+		GridBagConstraints gbc_lblBuchSuchen = new GridBagConstraints();
+		gbc_lblBuchSuchen.insets = new Insets(0, 0, 0, 5);
+		gbc_lblBuchSuchen.gridx = 1;
+		gbc_lblBuchSuchen.gridy = 0;
+		bookSearch.add(lblBuchSuchen, gbc_lblBuchSuchen);
+		
+		JTextField textFieldSearch = new JTextField();
+		GridBagConstraints gbc_textFieldSearch = new GridBagConstraints();
+		gbc_textFieldSearch.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldSearch.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldSearch.gridx = 2;
+		gbc_textFieldSearch.gridy = 0;
+		bookSearch.add(textFieldSearch, gbc_textFieldSearch);
+		textFieldSearch.setColumns(10);
+		
+		JPanel bookList = new JPanel();
+		GridBagConstraints gbc_bookList = new GridBagConstraints();
+		gbc_bookList.insets = new Insets(0, 0, 0, 5);
+		gbc_bookList.fill = GridBagConstraints.BOTH;
+		gbc_bookList.gridx = 0;
+		gbc_bookList.gridy = 1;
+		bookInventory.add(bookList, gbc_bookList);
 		
 
 		
@@ -170,8 +196,8 @@ public class BookMaster {
 		gbc_panel.gridy = 0;
 		//BorderPanel.add(panel, gbc_panel);
 		
-		JPanel Tab2 = new JPanel();
-		tabbedPane.addTab("Ausleihen", null, Tab2, null);
+		JPanel loanTabPanel = new JPanel();
+		tabbedPane.addTab("Ausleihen", null, loanTabPanel, null);
 	}
 
 }
