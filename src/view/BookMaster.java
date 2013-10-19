@@ -22,6 +22,11 @@ import javax.swing.SwingConstants;
 
 import domain.Book;
 import domain.Library;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class BookMaster {
 	/**
@@ -35,14 +40,15 @@ public class BookMaster {
 
 	private static Library library;
 	public JFrame frame;
+	private JTable table;
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 300);
-		frame.setMinimumSize(new Dimension(525, 250));
+		frame.setBounds(100, 100, 850, 300);
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
@@ -144,9 +150,9 @@ public class BookMaster {
 		gbc_bookInventory.gridy = 1;
 		panel_1.add(bookInventory, gbc_bookInventory);
 		GridBagLayout gbl_bookInventory = new GridBagLayout();
-		gbl_bookInventory.columnWidths = new int[]{0, 100};
+		gbl_bookInventory.columnWidths = new int[]{0};
 		gbl_bookInventory.rowHeights = new int[]{98, 0, 0};
-		gbl_bookInventory.columnWeights = new double[]{1.0, 0.0};
+		gbl_bookInventory.columnWeights = new double[]{1.0};
 		gbl_bookInventory.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		bookInventory.setLayout(gbl_bookInventory);
 		
@@ -158,9 +164,9 @@ public class BookMaster {
 		gbc_bookSearch.gridy = 0;
 		bookInventory.add(bookSearch, gbc_bookSearch);
 		GridBagLayout gbl_bookSearch = new GridBagLayout();
-		gbl_bookSearch.columnWidths = new int[]{0, 0, 0, 0, 20, 0};
+		gbl_bookSearch.columnWidths = new int[]{0, 0, 200, 0, 0, 54, 0};
 		gbl_bookSearch.rowHeights = new int[]{0, 0};
-		gbl_bookSearch.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_bookSearch.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bookSearch.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bookSearch.setLayout(gbl_bookSearch);
 		
@@ -180,14 +186,38 @@ public class BookMaster {
 		bookSearch.add(textFieldSearch, gbc_textFieldSearch);
 		textFieldSearch.setColumns(10);
 		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Nur Verfuegbare");
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 0, 5);
+		gbc_chckbxNewCheckBox.gridx = 3;
+		gbc_chckbxNewCheckBox.gridy = 0;
+		bookSearch.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		
+		JButton btnNewButton = new JButton("Selektierte Anzeigen");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.gridy = 0;
+		bookSearch.add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnNewButton2 = new JButton("Neues Buch hinzufuegen");
+		GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
+		gbc_btnNewButton2.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton2.gridx = 5;
+		gbc_btnNewButton2.gridy = 0;
+		bookSearch.add(btnNewButton2, gbc_btnNewButton2);
+		
 		JPanel bookList = new JPanel();
 		GridBagConstraints gbc_bookList = new GridBagConstraints();
-		gbc_bookList.insets = new Insets(0, 0, 0, 5);
 		gbc_bookList.fill = GridBagConstraints.BOTH;
 		gbc_bookList.gridx = 0;
 		gbc_bookList.gridy = 1;
 		bookInventory.add(bookList, gbc_bookList);
 		
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		bookList.add(scrollPane);
 
 		
 		JPanel panel = new JPanel();
