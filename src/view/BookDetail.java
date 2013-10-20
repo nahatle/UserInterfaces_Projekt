@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
@@ -171,7 +172,7 @@ public class BookDetail {
 						gbl_InventoryPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 						InventoryPanel.setLayout(gbl_InventoryPanel);
 								
-								lblNewLabel = new JLabel("Total Copies:");
+								lblNewLabel = new JLabel("Anzahl:");
 								GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 								gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 								gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);										
@@ -193,7 +194,6 @@ public class BookDetail {
 								gbc_btnDeleteBook.gridx = 3;
 								gbc_btnDeleteBook.gridy = 0;
 								InventoryPanel.add(btnDeleteBook, gbc_btnDeleteBook);
-	
 						
 								btnAddACopy = new JButton("Add a copy");
 								GridBagConstraints gbc_btnAddACopy = new GridBagConstraints();
@@ -202,6 +202,19 @@ public class BookDetail {
 								gbc_btnAddACopy.gridx = 4;
 								gbc_btnAddACopy.gridy = 0;
 								InventoryPanel.add(btnAddACopy, gbc_btnAddACopy);
+								
+								JTable copiesTable = new JTable(controller.getTableModel());
+								copiesTable.setAutoCreateRowSorter(true);
+								copiesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+								JScrollPane scrollPane = new JScrollPane(copiesTable);
+								GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+								gbc_scrollPane.gridwidth = 4;
+								gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+								gbc_scrollPane.fill = GridBagConstraints.BOTH;
+								gbc_scrollPane.gridx = 0;
+								gbc_scrollPane.gridy = 1;
+								bookInstancePanel.add(scrollPane, gbc_scrollPane);
 	}
 
 }
