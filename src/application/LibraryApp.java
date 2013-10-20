@@ -32,8 +32,8 @@ public class LibraryApp {
 				public void run() {
 					try {
 						BookMaster window = new BookMaster(library);
-						BookDetail detail = new BookDetail();
-						detail.frame.setVisible(true);
+//						BookDetail detail = new BookDetail(library);
+//						detail.frame.setVisible(true);
 						window.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
