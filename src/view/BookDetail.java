@@ -66,12 +66,11 @@ public class BookDetail {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(
-				new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		BookTitleInformationPanel = new JPanel();
 		BookTitleInformationPanel.setBorder(new TitledBorder(null, "Book Title Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		frame.getContentPane().add(BookTitleInformationPanel);
+		frame.getContentPane().add(BookTitleInformationPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_BookTitleInformationPanel = new GridBagLayout();
 		gbl_BookTitleInformationPanel.columnWidths = new int[] { 0, 0, 0 };
 		gbl_BookTitleInformationPanel.rowHeights = new int[] { 0, 0, 0, 0, 35, 0, 0 };
@@ -170,9 +169,9 @@ public class BookDetail {
 		frame.getContentPane().add(InventoryPanel);
 		GridBagLayout gbl_InventoryPanel = new GridBagLayout();
 		gbl_InventoryPanel.columnWidths = new int[]{95, 19, 0, 0, 0};
-		gbl_InventoryPanel.rowHeights = new int[]{29, 0, 0, 0};
+		gbl_InventoryPanel.rowHeights = new int[]{29, 0, 0};
 		gbl_InventoryPanel.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_InventoryPanel.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_InventoryPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		InventoryPanel.setLayout(gbl_InventoryPanel);
 				
 						lblNewLabel = new JLabel("Anzahl:");
@@ -210,7 +209,6 @@ public class BookDetail {
 
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 2;
 		gbc_scrollPane.gridwidth = 4;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;

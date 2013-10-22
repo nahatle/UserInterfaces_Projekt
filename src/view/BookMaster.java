@@ -27,6 +27,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 public class BookMaster {
 	/**
@@ -37,13 +38,12 @@ public class BookMaster {
 		initialize();
 	}
 
-	private static Library library;
-	public JFrame frame;
-	private JTable table;
+
+
 	private JTextField textField;
-	private JTable table_1;
-	private JLabel numberOfCopiesLabel;
-	private JLabel numberOfBooksLabel;
+	private JTable table;
+	private JLabel numOfCopiesLabel;
+	private JLabel numOfBooksLabel;
 	private JPanel contentPane;
 	
 
@@ -53,154 +53,83 @@ public class BookMaster {
 	private void initialize() {
 
 		contentPane = new JPanel();
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{737, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
 		
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.anchor = GridBagConstraints.WEST;
-		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 0;
-		contentPane.add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{735, 0};
-		gbl_panel_1.rowHeights = new int[]{108, 184, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+//		numberOfBooksLabel = new JLabel();
+//		GridBagConstraints gbc_numberOfBooksLabel = new GridBagConstraints();
+//		gbc_numberOfBooksLabel.anchor = GridBagConstraints.NORTHWEST;
+//		gbc_numberOfBooksLabel.insets = new Insets(0, 0, 5, 5);
+//		gbc_numberOfBooksLabel.gridx = 2;
+//		gbc_numberOfBooksLabel.gridy = 1;
 		
-		JPanel inventoryStats = new JPanel();
-		inventoryStats.setMaximumSize(new Dimension(50, 200));
-		inventoryStats.setBorder(new TitledBorder(null, "Inventar Statistiken", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_inventoryStats = new GridBagConstraints();
-		gbc_inventoryStats.fill = GridBagConstraints.BOTH;
-		gbc_inventoryStats.insets = new Insets(0, 0, 5, 0);
-		gbc_inventoryStats.gridx = 0;
-		gbc_inventoryStats.gridy = 0;
-		panel_1.add(inventoryStats, gbc_inventoryStats);
-		GridBagLayout gbl_inventoryStats = new GridBagLayout();
-		gbl_inventoryStats.columnWidths = new int[]{300, 0};
-		gbl_inventoryStats.rowHeights = new int[]{24, 0, 0};
-		gbl_inventoryStats.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_inventoryStats.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		inventoryStats.setLayout(gbl_inventoryStats);
-		
-		JPanel booksAndCopies = new JPanel();
-		GridBagConstraints gbc_booksAndCopies = new GridBagConstraints();
-		gbc_booksAndCopies.insets = new Insets(0, 0, 5, 0);
-		gbc_booksAndCopies.fill = GridBagConstraints.BOTH;
-		gbc_booksAndCopies.gridx = 0;
-		gbc_booksAndCopies.gridy = 0;
-		inventoryStats.add(booksAndCopies, gbc_booksAndCopies);
-		GridBagLayout gbl_booksAndCopies = new GridBagLayout();
-		gbl_booksAndCopies.columnWidths = new int[]{5, 0, 40, 0, 0, 40, 8, 45, 109, 0};
-		gbl_booksAndCopies.rowHeights = new int[]{10, 0, 0, 0};
-		gbl_booksAndCopies.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_booksAndCopies.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		booksAndCopies.setLayout(gbl_booksAndCopies);
+		JPanel inventoryStatsPanel = new JPanel();
+		inventoryStatsPanel.setBorder(new TitledBorder(null, "Inventar Statistik", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(inventoryStatsPanel, BorderLayout.NORTH);
+		GridBagLayout gbl_inventoryStatsPanel = new GridBagLayout();
+		gbl_inventoryStatsPanel.columnWidths = new int[]{110, 40, 140};
+		gbl_inventoryStatsPanel.rowHeights = new int[]{0, 0};
+		gbl_inventoryStatsPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
+		gbl_inventoryStatsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		inventoryStatsPanel.setLayout(gbl_inventoryStatsPanel);
 		
 		JLabel lblAnzahlBcher = new JLabel("Anzahl B\u00FCcher: ");
 		lblAnzahlBcher.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblAnzahlBcher = new GridBagConstraints();
-		gbc_lblAnzahlBcher.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblAnzahlBcher.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAnzahlBcher.gridx = 1;
-		gbc_lblAnzahlBcher.gridy = 1;
-		booksAndCopies.add(lblAnzahlBcher, gbc_lblAnzahlBcher);
-		lblAnzahlBcher.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblAnzahlBcher_1 = new GridBagConstraints();
+		gbc_lblAnzahlBcher_1.anchor = GridBagConstraints.WEST;
+		gbc_lblAnzahlBcher_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblAnzahlBcher_1.gridx = 0;
+		gbc_lblAnzahlBcher_1.gridy = 0;
+		inventoryStatsPanel.add(lblAnzahlBcher, gbc_lblAnzahlBcher_1);
 		
+		numOfBooksLabel = new JLabel();
+		GridBagConstraints gbc_numOfBooksLabel = new GridBagConstraints();
+		gbc_numOfBooksLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_numOfBooksLabel.gridx = 1;
+		gbc_numOfBooksLabel.gridy = 0;
+		inventoryStatsPanel.add(numOfBooksLabel, gbc_numOfBooksLabel);
 		
-		numberOfBooksLabel = new JLabel();
-		GridBagConstraints gbc_numberOfBooksLabel = new GridBagConstraints();
-		gbc_numberOfBooksLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_numberOfBooksLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_numberOfBooksLabel.gridx = 2;
-		gbc_numberOfBooksLabel.gridy = 1;
-		booksAndCopies.add(numberOfBooksLabel, gbc_numberOfBooksLabel);
+		JLabel lblAnzahlExemplare = new JLabel("Anzahl Exemplare: ");
+		GridBagConstraints gbc_lblAnzahlExemplare = new GridBagConstraints();
+		gbc_lblAnzahlExemplare.insets = new Insets(0, 0, 0, 5);
+		gbc_lblAnzahlExemplare.gridx = 2;
+		gbc_lblAnzahlExemplare.gridy = 0;
+		inventoryStatsPanel.add(lblAnzahlExemplare, gbc_lblAnzahlExemplare);
 		
-		JLabel lblAnzahlBcher2 = new JLabel("Anzahl Exemplare: ");
-		GridBagConstraints gbc_lblAnzahlBcher2 = new GridBagConstraints();
-		gbc_lblAnzahlBcher2.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblAnzahlBcher2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAnzahlBcher2.gridx = 3;
-		gbc_lblAnzahlBcher2.gridy = 1;
-		booksAndCopies.add(lblAnzahlBcher2, gbc_lblAnzahlBcher2);
+		numOfCopiesLabel = new JLabel();
+		GridBagConstraints gbc_numOfCopiesLabel = new GridBagConstraints();
+		gbc_numOfBooksLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_numOfBooksLabel.gridx = 3;
+		gbc_numOfBooksLabel.gridy = 0;
+		inventoryStatsPanel.add(numOfCopiesLabel, gbc_numOfCopiesLabel);
 		
+		JPanel inventoryBooksPanel = new JPanel();
+		inventoryBooksPanel.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(inventoryBooksPanel, BorderLayout.CENTER);
+		inventoryBooksPanel.setLayout(new BorderLayout(0, 0));
 		
-		numberOfCopiesLabel = new JLabel();
-		GridBagConstraints gbc_numberOfCopiesLabel = new GridBagConstraints();
-		gbc_numberOfCopiesLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_numberOfCopiesLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_numberOfCopiesLabel.gridx = 4;
-		gbc_numberOfCopiesLabel.gridy = 1;
-		booksAndCopies.add(numberOfCopiesLabel, gbc_numberOfCopiesLabel);
-		
-		JPanel bookInventory = new JPanel();
-		bookInventory.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_bookInventory = new GridBagConstraints();
-		gbc_bookInventory.anchor = GridBagConstraints.NORTH;
-		gbc_bookInventory.fill = GridBagConstraints.HORIZONTAL;
-		gbc_bookInventory.gridx = 0;
-		gbc_bookInventory.gridy = 1;
-		panel_1.add(bookInventory, gbc_bookInventory);
-		GridBagLayout gbl_bookInventory = new GridBagLayout();
-		gbl_bookInventory.columnWidths = new int[]{124, 0, 0, 0};
-		gbl_bookInventory.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_bookInventory.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
-		gbl_bookInventory.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		bookInventory.setLayout(gbl_bookInventory);
+		JPanel bookSearchPanel = new JPanel();
+		inventoryBooksPanel.add(bookSearchPanel, BorderLayout.NORTH);
 		
 		JLabel label = new JLabel("Buch suchen:");
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.anchor = GridBagConstraints.WEST;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 0;
-		bookInventory.add(label, gbc_label);
+		bookSearchPanel.add(label);
+		label.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		textField = new JTextField();
+		bookSearchPanel.add(textField);
 		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		bookInventory.add(textField, gbc_textField);
 		
 		JCheckBox checkBox = new JCheckBox("Nur Verfuegbare");
-		GridBagConstraints gbc_checkBox = new GridBagConstraints();
-		gbc_checkBox.anchor = GridBagConstraints.WEST;
-		gbc_checkBox.insets = new Insets(0, 0, 5, 5);
-		gbc_checkBox.gridx = 2;
-		gbc_checkBox.gridy = 0;
-		bookInventory.add(checkBox, gbc_checkBox);
+		bookSearchPanel.add(checkBox);
 		
 		JButton button_1 = new JButton("Neues Buch hinzufuegen");
-		GridBagConstraints gbc_button_1 = new GridBagConstraints();
-		gbc_button_1.anchor = GridBagConstraints.WEST;
-		gbc_button_1.insets = new Insets(0, 0, 5, 0);
-		gbc_button_1.gridx = 3;
-		gbc_button_1.gridy = 0;
-		bookInventory.add(button_1, gbc_button_1);
+		bookSearchPanel.add(button_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 4;
-		gbc_scrollPane.gridwidth = 4;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 1;
-		bookInventory.add(scrollPane, gbc_scrollPane);
+		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
 		
-		table_1 = new JTable();
-		scrollPane.setColumnHeaderView(table_1);
+		table = new JTable();
+		scrollPane.setColumnHeaderView(table);
 
 		
 		JPanel panel = new JPanel();
@@ -212,18 +141,18 @@ public class BookMaster {
 	}
 	
 	public JLabel getNumberOfCopiesLabel() {
-		return numberOfCopiesLabel;
+		return numOfCopiesLabel;
 	}
 
 	public JLabel getNumberOfBooksLabel() {
-		return numberOfBooksLabel;
+		return numOfBooksLabel;
 	}
 
 	public JPanel getContentPane() {
 		return contentPane;
 	}
 	public JTable getTable() {
-		return table_1;
+		return table;
 	}
 
 }
