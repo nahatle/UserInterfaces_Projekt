@@ -57,7 +57,7 @@ public class BookMaster {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{737, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -70,9 +70,9 @@ public class BookMaster {
 		contentPane.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{735, 0};
-		gbl_panel_1.rowHeights = new int[]{50, 184, 0};
+		gbl_panel_1.rowHeights = new int[]{108, 184, 0};
 		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		JPanel inventoryStats = new JPanel();
@@ -153,7 +153,7 @@ public class BookMaster {
 		gbl_bookInventory.columnWidths = new int[]{124, 0, 0, 0};
 		gbl_bookInventory.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_bookInventory.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
-		gbl_bookInventory.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_bookInventory.rowWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		bookInventory.setLayout(gbl_bookInventory);
 		
 		JLabel label = new JLabel("Buch suchen:");
@@ -221,6 +221,9 @@ public class BookMaster {
 
 	public JPanel getContentPane() {
 		return contentPane;
+	}
+	public JTable getTable() {
+		return table_1;
 	}
 
 }
