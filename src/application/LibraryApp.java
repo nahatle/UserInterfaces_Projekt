@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import controller.BookMasterController;
 import view.BookDetail;
 import view.BookMaster;
 import domain.Copy;
@@ -31,10 +32,10 @@ public class LibraryApp {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						BookMaster window = new BookMaster(library);
+						BookMasterController bookMasterController = new BookMasterController(library, new BookMaster());
 //						BookDetail detail = new BookDetail(library);
 //						detail.frame.setVisible(true);
-						window.frame.setVisible(true);
+//						window.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

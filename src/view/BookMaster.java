@@ -33,8 +33,7 @@ public class BookMaster {
 	 * Create the application.
 	 * @param library 
 	 */
-	public BookMaster(Library library) {
-		this.library = library;
+	public BookMaster() {
 		initialize();
 	}
 
@@ -43,28 +42,24 @@ public class BookMaster {
 	private JTable table;
 	private JTextField textField;
 	private JTable table_1;
+	private JLabel numberOfCopiesLabel;
+	private JLabel numberOfBooksLabel;
+	private JPanel contentPane;
+	
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 850, 300);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+		contentPane = new JPanel();
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frame.getContentPane().add(tabbedPane);
-		
-		JPanel bookTabPanel = new JPanel();
-		tabbedPane.addTab("B\u00FCcher", null, bookTabPanel, null);
-		GridBagLayout gbl_bookTabPanel = new GridBagLayout();
-		gbl_bookTabPanel.columnWidths = new int[]{737, 0};
-		gbl_bookTabPanel.rowHeights = new int[]{0, 0};
-		gbl_bookTabPanel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_bookTabPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		bookTabPanel.setLayout(gbl_bookTabPanel);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{737, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		contentPane.setLayout(gbl_contentPane);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -72,7 +67,7 @@ public class BookMaster {
 		gbc_panel_1.fill = GridBagConstraints.VERTICAL;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 0;
-		bookTabPanel.add(panel_1, gbc_panel_1);
+		contentPane.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{735, 0};
 		gbl_panel_1.rowHeights = new int[]{50, 184, 0};
@@ -121,13 +116,13 @@ public class BookMaster {
 		lblAnzahlBcher.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		
-		JLabel lblNewLabel = new JLabel(new Integer(library.getBooks().size()).toString());
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 2;
-		gbc_lblNewLabel.gridy = 1;
-		booksAndCopies.add(lblNewLabel, gbc_lblNewLabel);
+		numberOfBooksLabel = new JLabel();
+		GridBagConstraints gbc_numberOfBooksLabel = new GridBagConstraints();
+		gbc_numberOfBooksLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_numberOfBooksLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_numberOfBooksLabel.gridx = 2;
+		gbc_numberOfBooksLabel.gridy = 1;
+		booksAndCopies.add(numberOfBooksLabel, gbc_numberOfBooksLabel);
 		
 		JLabel lblAnzahlBcher2 = new JLabel("Anzahl Exemplare: ");
 		GridBagConstraints gbc_lblAnzahlBcher2 = new GridBagConstraints();
@@ -138,13 +133,13 @@ public class BookMaster {
 		booksAndCopies.add(lblAnzahlBcher2, gbc_lblAnzahlBcher2);
 		
 		
-		JLabel lblNewLabel2 = new JLabel(new Integer(library.getCopies().size()).toString());
-		GridBagConstraints gbc_lblNewLabel2 = new GridBagConstraints();
-		gbc_lblNewLabel2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel2.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblNewLabel2.gridx = 4;
-		gbc_lblNewLabel2.gridy = 1;
-		booksAndCopies.add(lblNewLabel2, gbc_lblNewLabel2);
+		numberOfCopiesLabel = new JLabel();
+		GridBagConstraints gbc_numberOfCopiesLabel = new GridBagConstraints();
+		gbc_numberOfCopiesLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_numberOfCopiesLabel.anchor = GridBagConstraints.NORTHWEST;
+		gbc_numberOfCopiesLabel.gridx = 4;
+		gbc_numberOfCopiesLabel.gridy = 1;
+		booksAndCopies.add(numberOfCopiesLabel, gbc_numberOfCopiesLabel);
 		
 		JPanel bookInventory = new JPanel();
 		bookInventory.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -213,10 +208,19 @@ public class BookMaster {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
-		//BorderPanel.add(panel, gbc_panel);
-		
-		JPanel loanTabPanel = new JPanel();
-		tabbedPane.addTab("Ausleihen", null, loanTabPanel, null);
+
+	}
+	
+	public JLabel getNumberOfCopiesLabel() {
+		return numberOfCopiesLabel;
+	}
+
+	public JLabel getNumberOfBooksLabel() {
+		return numberOfBooksLabel;
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
 	}
 
 }
