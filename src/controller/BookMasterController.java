@@ -1,10 +1,16 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import domain.Library;
+import view.BookDetail;
 import view.BookMaster;
 
 public class BookMasterController {
@@ -12,6 +18,7 @@ public class BookMasterController {
 	private Library lib;
 	private BookMaster bookMaster;
 	private JFrame frame;
+	private MouseEvent e;
 	
 	public BookMasterController(Library library, BookMaster bookMaster){
 		this.lib = library;
@@ -20,12 +27,20 @@ public class BookMasterController {
 		initialize();
 		updateUI();
 		displayFrame();
-		
-		
-		
+		mouseClicked(e);
 	}
 	
+	
 	private void initialize(){
+		bookMaster.getButton().addActionListener((new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+            }
+
+        })
+ );
 		bookMaster.getTable().setModel(new TableModel() {
 			
 			@Override
@@ -98,8 +113,19 @@ public class BookMasterController {
 		frame.setContentPane(bookMaster.getContentPane());
 		frame.pack();
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 	
+	  public void mouseClicked(MouseEvent e) {
+		  System.out.println("test");
+	      if (e.getClickCount() == 2) {
+	         JTable target = (JTable)e.getSource();
+	         int row = target.getSelectedRow();
+	         int column = target.getSelectedColumn();
+	         BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+	         }
+	   }
 	
 //Soll Model und BookMaster verbinden
 //

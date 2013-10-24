@@ -22,7 +22,7 @@ public class BookDetailController {
 	}
 
 	public void initialize(){
-		bookDetail.
+//		bookDetail.
 	}
 	
 	
@@ -36,6 +36,7 @@ public class BookDetailController {
 		frame.setContentPane(bookDetail.getContentPane());
 		frame.pack();
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	

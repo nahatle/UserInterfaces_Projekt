@@ -45,7 +45,9 @@ public class BookMaster {
 	private JLabel numOfCopiesLabel;
 	private JLabel numOfBooksLabel;
 	private JPanel contentPane;
-	
+	private JButton button_1;
+
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -122,7 +124,7 @@ public class BookMaster {
 		JCheckBox checkBox = new JCheckBox("Nur Verfuegbare");
 		bookSearchPanel.add(checkBox);
 		
-		JButton button_1 = new JButton("Neues Buch hinzufuegen");
+		button_1 = new JButton("Neues Buch hinzufuegen");
 		bookSearchPanel.add(button_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -138,6 +140,10 @@ public class BookMaster {
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 
+	}
+	
+	public JButton getButton() {
+		return button_1;
 	}
 	
 	public JLabel getNumberOfCopiesLabel() {

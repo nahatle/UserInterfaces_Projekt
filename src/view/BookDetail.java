@@ -43,12 +43,10 @@ public class BookDetail {
 	public JFrame frame;
 	private JPanel BookTitleInformationPanel;
 	private JPanel InventoryPanel;
-	private JLabel lblIsbn;
 	private JLabel lblTitle;
 	private JLabel lblAuthor;
 	private JLabel lblPublisher;
 	private JLabel lblCondition;
-	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
@@ -78,23 +76,6 @@ public class BookDetail {
 		gbl_BookTitleInformationPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		gbl_BookTitleInformationPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		BookTitleInformationPanel.setLayout(gbl_BookTitleInformationPanel);
-
-		lblIsbn = new JLabel("ISBN");
-		GridBagConstraints gbc_lblIsbn = new GridBagConstraints();
-		gbc_lblIsbn.anchor = GridBagConstraints.EAST;
-		gbc_lblIsbn.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIsbn.gridx = 0;
-		gbc_lblIsbn.gridy = 1;
-		BookTitleInformationPanel.add(lblIsbn, gbc_lblIsbn);
-
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 1;
-		BookTitleInformationPanel.add(textField, gbc_textField);
-		textField.setColumns(10);
 
 		lblTitle = new JLabel("Title");
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();

@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import controller.BookDetailController;
 import controller.BookMasterController;
 import view.BookDetail;
 import view.BookMaster;
@@ -33,6 +34,7 @@ public class LibraryApp {
 				public void run() {
 					try {
 						BookMasterController bookMasterController = new BookMasterController(library, new BookMaster());
+//						BookDetailController bookDetailController = new BookDetailController(library, new BookDetail());
 //						BookDetail detail = new BookDetail(library);
 //						detail.frame.setVisible(true);
 //						window.frame.setVisible(true);
