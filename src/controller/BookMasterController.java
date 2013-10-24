@@ -70,8 +70,10 @@ public class BookMasterController {
 				case 1:
 					return lib.getBooks().get(rowIndex).getAuthor();
 				}
-				return "";
+				case 2:
+				return lib.getBooks().get(rowIndex).getPublisher();
 			}
+			
 			
 			@Override
 			public int getRowCount() {
@@ -86,7 +88,7 @@ public class BookMasterController {
 			
 			@Override
 			public int getColumnCount() {		
-				return 2;
+				return 4;
 			}
 			
 			@Override
@@ -116,16 +118,6 @@ public class BookMasterController {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
-	
-	  public void mouseClicked(MouseEvent e) {
-		  System.out.println("test");
-	      if (e.getClickCount() == 2) {
-	         JTable target = (JTable)e.getSource();
-	         int row = target.getSelectedRow();
-	         int column = target.getSelectedColumn();
-	         BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
-	         }
-	   }
 	
 //Soll Model und BookMaster verbinden
 //

@@ -129,10 +129,12 @@ public class BookMaster {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
+
 		
 		table = new JTable();
 		scrollPane.setColumnHeaderView(table);
-
+		
+	
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
