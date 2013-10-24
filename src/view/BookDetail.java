@@ -198,6 +198,14 @@ public class BookDetail {
 
 	}
 
+	public JButton getBtnAddACopy() {
+		return btnAddACopy;
+	}
+
+	public JButton getBtnDeleteBook(){
+		return btnDeleteBook;
+	}
+	
 	public JPanel getContentPane() {
 		return contentPane;
 	}

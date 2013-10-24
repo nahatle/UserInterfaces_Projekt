@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,10 +26,23 @@ public class BookDetailController implements Observer{
 		displayFrame();
 	}
 
-	public void initialize(){
-//		bookDetail.
+	//Actionlistener kommen hier rein
+ void initialize(){
+		
+		bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+			}
+
+		})
+				);
+		
+		
+		
 	}
-	
+ 
 	
 	public void updateUI(){
 //		bookDetail.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());

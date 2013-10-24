@@ -47,6 +47,7 @@ public class BookMaster {
 	private JLabel numOfBooksLabel;
 	private JPanel contentPane;
 	private JButton button_1;
+	private JButton btnBearbeiten;
 
 
 
@@ -120,6 +121,9 @@ public class BookMaster {
 		
 		button_1 = new JButton("Neues Buch hinzufuegen");
 		bookSearchPanel.add(button_1);
+		
+		btnBearbeiten = new JButton("Bearbeiten...");
+		bookSearchPanel.add(btnBearbeiten);
 
 		
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -137,6 +141,10 @@ public class BookMaster {
 
 	}
 	
+	public JButton getBtnBearbeiten() {
+		return btnBearbeiten;
+	}
+
 	public JButton getButton() {
 		return button_1;
 	}
