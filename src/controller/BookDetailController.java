@@ -1,11 +1,14 @@
 package controller;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JFrame;
 
 import view.BookDetail;
 import domain.Library;
 
-public class BookDetailController {
+public class BookDetailController implements Observer{
 	
 
 	private Library lib;
@@ -37,6 +40,11 @@ public class BookDetailController {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		updateUI();	
 	}
 	
 	

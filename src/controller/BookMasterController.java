@@ -3,22 +3,27 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import domain.Library;
 import view.BookDetail;
 import view.BookMaster;
 
-public class BookMasterController {
+public class BookMasterController implements Observer {
 	
 	private Library lib;
 	private BookMaster bookMaster;
 	private JFrame frame;
 	private MouseEvent e;
+	private String[] names = {"Titel", "Autor"};
+	
 	
 	public BookMasterController(Library library, BookMaster bookMaster){
 		this.lib = library;
@@ -27,7 +32,7 @@ public class BookMasterController {
 		initialize();
 		updateUI();
 		displayFrame();
-		mouseClicked(e);
+		lib.addObserver(this);
 	}
 	
 	
@@ -41,25 +46,10 @@ public class BookMasterController {
 
         })
  );
-		bookMaster.getTable().setModel(new TableModel() {
+		
+		bookMaster.getTable().setModel(new AbstractTableModel() {
 			
-			@Override
-			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-				// TODO Auto-generated method stub
-				
-			}
 			
-			@Override
-			public void removeTableModelListener(TableModelListener l) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				// TODO Auto-generated method stub
-				return false;
-			}
 			
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -70,8 +60,7 @@ public class BookMasterController {
 				case 1:
 					return lib.getBooks().get(rowIndex).getAuthor();
 				}
-				case 2:
-				return lib.getBooks().get(rowIndex).getPublisher();
+				return 0;
 			}
 			
 			
@@ -82,25 +71,19 @@ public class BookMasterController {
 			
 			@Override
 			public String getColumnName(int columnIndex) {
-				String[] names = {"Titel", "Autor"};
 				return names[columnIndex];
 			}
 			
 			@Override
 			public int getColumnCount() {		
-				return 4;
+				return names.length;
 			}
 			
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return getValueAt(0, columnIndex).getClass();
 			}
-			
-			@Override
-			public void addTableModelListener(TableModelListener l) {
-				// TODO Auto-generated method stub
-				
-			}
+
 		});
 	}
 	
@@ -117,6 +100,12 @@ public class BookMasterController {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		updateUI();
 	}
 	
 //Soll Model und BookMaster verbinden

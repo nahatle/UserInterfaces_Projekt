@@ -28,6 +28,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
+import javax.swing.ScrollPaneConstants;
 
 public class BookMaster {
 	/**
@@ -57,13 +58,6 @@ public class BookMaster {
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		
-//		numberOfBooksLabel = new JLabel();
-//		GridBagConstraints gbc_numberOfBooksLabel = new GridBagConstraints();
-//		gbc_numberOfBooksLabel.anchor = GridBagConstraints.NORTHWEST;
-//		gbc_numberOfBooksLabel.insets = new Insets(0, 0, 5, 5);
-//		gbc_numberOfBooksLabel.gridx = 2;
-//		gbc_numberOfBooksLabel.gridy = 1;
 		
 		JPanel inventoryStatsPanel = new JPanel();
 		inventoryStatsPanel.setBorder(new TitledBorder(null, "Inventar Statistik", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -126,14 +120,13 @@ public class BookMaster {
 		
 		button_1 = new JButton("Neues Buch hinzufuegen");
 		bookSearchPanel.add(button_1);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
 
 		
+		JScrollPane scrollPane = new JScrollPane(table);
+		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
+
 		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
-		
+		scrollPane.setViewportView(table);
 	
 		
 		JPanel panel = new JPanel();
