@@ -40,7 +40,7 @@ public class BookMaster {
 	}
 
 
-
+	private int number;
 	private JTextField textField;
 	private JTable table;
 	private JLabel numOfCopiesLabel;
@@ -48,7 +48,7 @@ public class BookMaster {
 	private JPanel contentPane;
 	private JButton button_1;
 	private JButton btnBearbeiten;
-
+	private JLabel lblAnzSelektiert;
 
 
 	/**
@@ -66,7 +66,7 @@ public class BookMaster {
 		GridBagLayout gbl_inventoryStatsPanel = new GridBagLayout();
 		gbl_inventoryStatsPanel.columnWidths = new int[]{110, 40, 140};
 		gbl_inventoryStatsPanel.rowHeights = new int[]{0, 0};
-		gbl_inventoryStatsPanel.columnWeights = new double[]{0.0, 0.0, 0.0};
+		gbl_inventoryStatsPanel.columnWeights = new double[]{1.0, 1.0, 1.0};
 		gbl_inventoryStatsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		inventoryStatsPanel.setLayout(gbl_inventoryStatsPanel);
 		
@@ -106,7 +106,13 @@ public class BookMaster {
 		inventoryBooksPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel bookSearchPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) bookSearchPanel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
 		inventoryBooksPanel.add(bookSearchPanel, BorderLayout.NORTH);
+		
+		lblAnzSelektiert = new JLabel();
+		lblAnzSelektiert.setHorizontalAlignment(SwingConstants.LEFT);
+		bookSearchPanel.add(lblAnzSelektiert);
 		
 		JLabel label = new JLabel("Buch suchen:");
 		bookSearchPanel.add(label);
@@ -141,6 +147,10 @@ public class BookMaster {
 
 	}
 	
+	public JTextField getTextField() {
+		return textField;
+	}
+
 	public JButton getBtnBearbeiten() {
 		return btnBearbeiten;
 	}
@@ -162,6 +172,11 @@ public class BookMaster {
 	}
 	public JTable getTable() {
 		return table;
+	}
+	
+	
+	public void setLblAnzSelektiert(int number) {
+		lblAnzSelektiert.setText("Ausgewaehlt: " + number);
 	}
 
 }
