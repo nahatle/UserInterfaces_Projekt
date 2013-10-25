@@ -2,17 +2,23 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import domain.Library;
 import view.BookDetail;
@@ -24,7 +30,8 @@ public class BookMasterController implements Observer {
 	private BookMaster bookMaster;
 	private JFrame frame;
 	private MouseEvent e;
-	private String[] names = {"Titel", "Autor"};
+	private String[] names = {"Titel", "Autor", "Verlag"};
+	private TableModel model;
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
@@ -42,10 +49,13 @@ public class BookMasterController implements Observer {
 		
 		bookMaster.getBtnBearbeiten().setEnabled(false);
 		
+		
 		bookMaster.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
+				
+				bookMaster.setLblAnzSelektiert(bookMaster.getTable().getSelectedRowCount());
 				if(bookMaster.getTable().getSelectedRows().length > 0){
 					bookMaster.getBtnBearbeiten().setEnabled(true);
 				} else
@@ -54,8 +64,7 @@ public class BookMasterController implements Observer {
 			}
 			
 		});
-		
-		
+			
 		bookMaster.getButton().addActionListener((new ActionListener() {
 
 			@Override
@@ -70,15 +79,13 @@ public class BookMasterController implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BookDetailController filledBookDetailController = new BookDetailController(lib, new BookDetail());
+				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
 			}
 
 		})
 				);
 
 		bookMaster.getTable().setModel(new AbstractTableModel() {
-
-
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -88,10 +95,13 @@ public class BookMasterController implements Observer {
 
 				case 1:
 					return lib.getBooks().get(rowIndex).getAuthor();
+					
+				case 2:
+					return lib.getBooks().get(rowIndex).getPublisher();
 				}
+				
 				return 0;
 			}
-
 
 			@Override
 			public int getRowCount() {
@@ -100,6 +110,7 @@ public class BookMasterController implements Observer {
 
 			@Override
 			public String getColumnName(int columnIndex) {
+//				return null;
 				return names[columnIndex];
 			}
 
@@ -114,12 +125,43 @@ public class BookMasterController implements Observer {
 			}
 
 		});
+		
+		bookMaster.getTextField().getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateUI();	
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateUI();
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				updateUI();
+			}
+		});
 	}
 
 	private void updateUI(){
+		//Dynamisch Buecher zaehlen
 		bookMaster.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());
 		bookMaster.getNumberOfCopiesLabel().setText(new Integer(lib.getCopies().size()).toString());
+		bookMaster.setLblAnzSelektiert(bookMaster.getTable().getSelectedRowCount());
+		
+		//Tabelle ins Frame 
 		bookMaster.getTable().updateUI();
+		
+		//Sortieren der Tabelle
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		bookMaster.getTable().setRowSorter(sorter);
+		sorter.setModel(bookMaster.getTable().getModel());
+		//Filtern der Tabelle, Suchfunktion
+		sorter.setRowFilter(RowFilter.regexFilter(bookMaster.getTextField().getText()));
+		
+		
 
 	}
 
@@ -128,7 +170,6 @@ public class BookMasterController implements Observer {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 
@@ -137,6 +178,5 @@ public class BookMasterController implements Observer {
 		updateUI();
 	}
 
-	//Soll Model und BookMaster verbinden
-	//
+
 }
