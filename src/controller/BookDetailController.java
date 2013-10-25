@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 
 import view.BookDetail;
+import domain.Book;
 import domain.Library;
 
 public class BookDetailController implements Observer{
@@ -16,6 +17,7 @@ public class BookDetailController implements Observer{
 	private Library lib;
 	private BookDetail bookDetail;
 	private JFrame frame;
+	private Book book;
 	
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
@@ -25,25 +27,42 @@ public class BookDetailController implements Observer{
 		updateUI();
 		displayFrame();
 	}
+	
+	
+	public BookDetailController(Library library, BookDetail bookDetail, Book selectedBook){
+		this.lib = library;
+		this.bookDetail = bookDetail;
+		this.frame = new JFrame();
+		this.book = selectedBook;
+		setBookDetailInTextfield();
+		initialize();
+		updateUI();
+		displayFrame();
+	}
+
+	public void setBookDetailInTextfield() {
+		bookDetail.setTxtFieldTitle(book.getName());
+		bookDetail.setTxtFieldAuthor(book.getAuthor());
+		
+	}
+
 
 	//Actionlistener kommen hier rein
- void initialize(){
-		
-		bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
+	public void initialize(){
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
-			}
+	 bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
 
-		})
-				);
+		 @Override
+		 public void actionPerformed(ActionEvent e) {
+			 BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+		 }})
+			 );
 		
 		
 		
 	}
  
-	
+
 	public void updateUI(){
 //		bookDetail.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());
 //		bookDetail.getNumberOfCopiesLabel().setText(new Integer(lib.getCopies().size()).toString());
