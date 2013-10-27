@@ -54,7 +54,6 @@ public class BookMasterController implements Observer {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				
 				bookMaster.setLblAnzSelektiert(bookMaster.getTable().getSelectedRowCount());
 				if(bookMaster.getTable().getSelectedRows().length > 0){
 					bookMaster.getBtnBearbeiten().setEnabled(true);
@@ -76,11 +75,11 @@ public class BookMasterController implements Observer {
 				);
 		
 		bookMaster.getBtnBearbeiten().addActionListener((new ActionListener() {
-
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(bookMaster.getTable().getSelectedRow())));
-			}
+				}
 
 		})
 				);

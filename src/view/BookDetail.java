@@ -138,7 +138,7 @@ public class BookDetail {
 		BookTitleInformationPanel.add(lblCondition, gbc_lblCondition);
 
 		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Neuwertig", "Gebraucht", "Beschaedigt" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"NEW", "GOOD", "DAMAGED", "WASTE", "LOST" }));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
@@ -183,6 +183,10 @@ public class BookDetail {
 //		scrollPane = new JScrollPane();
 //		InventoryPanel.add(scrollPane);
 
+	}
+
+	public JTable getConditionTable() {
+		return conditionTable;
 	}
 
 	public JButton getBtnAddACopy() {
