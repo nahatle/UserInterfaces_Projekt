@@ -164,7 +164,7 @@ public class BookDetail {
 		btnDeleteBook = new JButton("Ausgewählte entfernen");
 		inventoryActionPanel.add(btnDeleteBook);
 
-		btnAddACopy = new JButton("Add a copy");
+		btnAddACopy = new JButton("Buch hinzufuegen");
 		inventoryActionPanel.add(btnAddACopy);
 		
 		
@@ -212,4 +212,25 @@ public class BookDetail {
 	public void setTxtFieldAuthor(String author) {
 		this.txtFieldAuthor.setText(author);
 	}
+
+	public JTextField getTxtFieldPublisher() {
+		return txtFieldPublisher;
+	}
+
+	public JTextField getTxtFieldTitle() {
+		return txtFieldTitle;
+	}
+
+	public JTextField getTxtFieldAuthor() {
+		return txtFieldAuthor;
+	}
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
+	public void setComboBox(JComboBox comboBox) {
+		this.comboBox = comboBox;
+	}
+	
 }

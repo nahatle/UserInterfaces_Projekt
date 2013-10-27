@@ -10,6 +10,7 @@ public class Library extends Observable {
 	private List<Customer> customers;
 	private List<Loan> loans;
 	private List<Book> books;
+	
 
 
 
@@ -43,6 +44,13 @@ public class Library extends Observable {
 		return b;
 	}
 
+	public Book createAndAddBook(Book book) {
+		Book b = book;
+		books.add(b);
+		doNotify();
+		return b;
+	}
+	
 	public Copy createAndAddCopy(Book title) {
 		Copy c = new Copy(title);
 		copies.add(c);

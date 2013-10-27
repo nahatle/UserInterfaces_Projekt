@@ -54,12 +54,22 @@ public class BookDetailController implements Observer{
 
 	//Actionlistener kommen hier rein
 	public void initialize(){
+
 	
 	 bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
 
 		 @Override
 		 public void actionPerformed(ActionEvent e) {
-			 BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+//			 bookDetail.getBtnAddACopy().setEnabled(true);
+//			 bookDetail.getTxtFieldTitle().setEditable(false);
+//			 bookDetail.getTxtFieldAuthor().setEditable(false);
+//			 bookDetail.getTxtFieldPublisher().setEditable(false);
+//			 bookDetail.getComboBox().setEnabled(false);
+			 selectedBook = new Book(bookDetail.getTxtFieldTitle().getText());
+			 selectedBook.setAuthor(bookDetail.getTxtFieldAuthor().getText());
+			 selectedBook.setPublisher(bookDetail.getTxtFieldPublisher().getText());
+			 lib.createAndAddBook(selectedBook);
+
 		 }})
 			 );
 		

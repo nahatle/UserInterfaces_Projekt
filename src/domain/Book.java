@@ -2,10 +2,12 @@ package domain;
 
 import java.util.Observable;
 
+
 public class Book extends Observable {
 	
 	private String title, author, publisher;
 	private Shelf shelf;
+
 	
 	public Book(String name) {
 		this.title = name;
@@ -42,8 +44,8 @@ public class Book extends Observable {
 		return shelf;
 	}
 	
-	public void setShelf(Shelf shelf) {
-		this.shelf = shelf;
+	public void setShelf(Shelf object) {
+		this.shelf = object;
 		doNotify();
 	}
 	
