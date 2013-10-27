@@ -71,16 +71,16 @@ public class BookDetailController implements Observer{
 				
 				switch(columnIndex) {
 				case 0:
-					return lib.getCopiesOfBook(selectedBook);
+					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
 				case 1:
-					return lib.getCopiesOfBook(selectedBook);
+					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getCondition();
 				}
 				return 0;
-			
 			}
+			
 			@Override
 			public int getRowCount() {
-				return lib.getCopies().size();
+				return lib.getCopiesOfBook(selectedBook).size();
 			}
 
 			@Override

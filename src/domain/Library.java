@@ -129,7 +129,7 @@ public class Library extends Observable {
 	public void doNotify(){
 		setChanged();
 		notifyObservers();
-	}
+	}   
 	
 
 	public List<Copy> getCopies() {
