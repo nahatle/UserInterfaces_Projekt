@@ -17,7 +17,7 @@ public class BookDetailController implements Observer{
 	private Library lib;
 	private BookDetail bookDetail;
 	private JFrame frame;
-	private Book book;
+	private Book selectedBook;
 	
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
@@ -33,7 +33,7 @@ public class BookDetailController implements Observer{
 		this.lib = library;
 		this.bookDetail = bookDetail;
 		this.frame = new JFrame();
-		this.book = selectedBook;
+		this.selectedBook = selectedBook;
 		setBookDetailInTextfield();
 		initialize();
 		updateUI();
@@ -41,15 +41,17 @@ public class BookDetailController implements Observer{
 	}
 
 	public void setBookDetailInTextfield() {
-		bookDetail.setTxtFieldTitle(book.getName());
-		bookDetail.setTxtFieldAuthor(book.getAuthor());
+		
+		bookDetail.setTxtFieldTitle(new String(selectedBook.getName()));
+		bookDetail.setTxtFieldAuthor(selectedBook.getAuthor());
+		bookDetail.setTxtFieldPublisher(selectedBook.getPublisher());
 		
 	}
 
 
 	//Actionlistener kommen hier rein
 	public void initialize(){
-
+	
 	 bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
 
 		 @Override
