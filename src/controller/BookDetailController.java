@@ -6,12 +6,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
 import view.BookDetail;
 import domain.Book;
 import domain.Copy;
 import domain.Library;
+import domain.Shelf;
 
 public class BookDetailController implements Observer{
 	
@@ -21,6 +24,7 @@ public class BookDetailController implements Observer{
 	private JFrame frame;
 	private Book selectedBook;
 	private String[] names = {"ID", "Buchzustand"};
+
 	
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
@@ -54,9 +58,65 @@ public class BookDetailController implements Observer{
 
 	//Actionlistener kommen hier rein
 	public void initialize(){
-
+		
+	 
+		bookDetail.getTxtFieldTitle().getDocument().addDocumentListener(new DocumentListener() {
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+	});
+	 
+	 
+	 bookDetail.getTxtFieldAuthor().getDocument().addDocumentListener(new DocumentListener() {
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+	});
+	 
+	 
+	 bookDetail.getTxtFieldPublisher().getDocument().addDocumentListener(new DocumentListener() {
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			isTextfieldValid();
+		}
+	});
 	
-	 bookDetail.getBtnAddACopy().addActionListener((new ActionListener() {
+	 bookDetail.getBtnSave().addActionListener((new ActionListener() {
 
 		 @Override
 		 public void actionPerformed(ActionEvent e) {
@@ -68,6 +128,7 @@ public class BookDetailController implements Observer{
 			 selectedBook = new Book(bookDetail.getTxtFieldTitle().getText());
 			 selectedBook.setAuthor(bookDetail.getTxtFieldAuthor().getText());
 			 selectedBook.setPublisher(bookDetail.getTxtFieldPublisher().getText());
+			 selectedBook.setShelf((Shelf)bookDetail.getComboBox().getSelectedItem());
 			 lib.createAndAddBook(selectedBook);
 
 		 }})
@@ -75,6 +136,8 @@ public class BookDetailController implements Observer{
 		
 		
 	 bookDetail.getConditionTable().setModel( new AbstractTableModel() {
+
+		private static final long serialVersionUID = 1L;
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -114,6 +177,25 @@ public class BookDetailController implements Observer{
 
 	public void updateUI(){
 		bookDetail.getConditionTable().updateUI();
+		
+		if(isTextfieldValid()){
+			bookDetail.getBtnSave().setEnabled(true);
+		} else {
+			bookDetail.getBtnSave().setEnabled(false);
+		}
+	}
+	
+	public boolean isTextfieldValid(){
+		if (!bookDetail.getTxtFieldTitle().getText().equals("")){
+			return true;
+		}
+		if (!bookDetail.getTxtFieldAuthor().getText().equals("")){
+			return true;
+		}
+		if (!bookDetail.getTxtFieldPublisher().getText().equals("")){
+			return true;
+		} else
+		return false;
 	}
 	
 	public void displayFrame(){

@@ -53,7 +53,7 @@ public class BookDetail {
 	private JTextField txtFieldAuthor;
 	private JComboBox comboBox;
 	private JLabel lblNewLabel;
-	private JButton btnAddACopy;
+	private JButton btnSave;
 	private JButton btnDeleteBook;
 	private JLabel lblNumberOfCopies;
 	private JScrollPane detailScrollPane;
@@ -161,11 +161,11 @@ public class BookDetail {
 		lblNumberOfCopies = new JLabel();
 		inventoryActionPanel.add(lblNumberOfCopies);
 
-		btnDeleteBook = new JButton("Ausgewählte entfernen");
+		btnDeleteBook = new JButton("Entfernen");
 		inventoryActionPanel.add(btnDeleteBook);
 
-		btnAddACopy = new JButton("Buch hinzufuegen");
-		inventoryActionPanel.add(btnAddACopy);
+		btnSave = new JButton("Speichern");
+		inventoryActionPanel.add(btnSave);
 		
 		
 		conditionTable = new JTable();
@@ -189,8 +189,8 @@ public class BookDetail {
 		return conditionTable;
 	}
 
-	public JButton getBtnAddACopy() {
-		return btnAddACopy;
+	public JButton getBtnSave() {
+		return btnSave;
 	}
 
 	public JButton getBtnDeleteBook(){

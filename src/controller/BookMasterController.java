@@ -28,19 +28,14 @@ public class BookMasterController implements Observer {
 
 	private Library lib;
 	private BookMaster bookMaster;
-	private JFrame frame;
-	private MouseEvent e;
 	private String[] names = {"Titel", "Autor", "Verlag"};
-	private TableModel model;
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
 		this.lib = library;
 		this.bookMaster = bookMaster;
-		this.frame = new JFrame();
 		initialize();
 		updateUI();
-		displayFrame();
 		lib.addObserver(this);
 	}
 
@@ -166,18 +161,14 @@ public class BookMasterController implements Observer {
 
 	}
 
-	private void displayFrame(){
-		frame.setContentPane(bookMaster.getContentPane());
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
 
 	@Override
 	public void update(Observable o, Object arg) {
 		updateUI();
 	}
 
+	public BookMaster getBookMaster() {
+		return bookMaster;
+	}
 
 }

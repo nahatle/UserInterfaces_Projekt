@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import controller.BookDetailController;
 import controller.BookMasterController;
+import controller.TabbedController;
 import view.BookDetail;
 import view.BookMaster;
 import domain.Copy;
@@ -33,7 +34,9 @@ public class LibraryApp {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
+
 						BookMasterController bookMasterController = new BookMasterController(library, new BookMaster());
+						TabbedController tcontroll = new TabbedController(bookMasterController);
 //						BookDetailController bookDetailController = new BookDetailController(library, new BookDetail());
 //						BookDetail detail = new BookDetail(library);
 //						detail.frame.setVisible(true);
