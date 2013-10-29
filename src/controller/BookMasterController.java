@@ -78,7 +78,9 @@ public class BookMasterController implements Observer {
 		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(bookMaster.getTable().getSelectedRow())));
+				for(int rowId:bookMaster.getTable().getSelectedRows()){
+					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(rowId)));
+				}
 				}
 
 		})
