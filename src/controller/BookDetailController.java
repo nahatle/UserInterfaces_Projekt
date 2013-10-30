@@ -64,17 +64,17 @@ public class BookDetailController implements Observer{
 		
 		@Override
 		public void removeUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void insertUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 	});
 	 
@@ -83,17 +83,17 @@ public class BookDetailController implements Observer{
 		
 		@Override
 		public void removeUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void insertUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 	});
 	 
@@ -102,20 +102,22 @@ public class BookDetailController implements Observer{
 		
 		@Override
 		public void removeUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void insertUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
-			isTextfieldValid();
+			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 	});
 	
+	 
+	 //Speicherbutton 
 	 bookDetail.getBtnSave().addActionListener((new ActionListener() {
 
 		 @Override
@@ -134,7 +136,7 @@ public class BookDetailController implements Observer{
 		 }})
 			 );
 		
-		
+		//Tabelle mit den Buchzustaenden abfuellen
 	 bookDetail.getConditionTable().setModel( new AbstractTableModel() {
 
 		private static final long serialVersionUID = 1L;
@@ -177,25 +179,21 @@ public class BookDetailController implements Observer{
 
 	public void updateUI(){
 		bookDetail.getConditionTable().updateUI();
-		
-		if(isTextfieldValid()){
-			bookDetail.getBtnSave().setEnabled(true);
-		} else {
-			bookDetail.getBtnSave().setEnabled(false);
-		}
+		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
+	
 	}
 	
 	public boolean isTextfieldValid(){
-		if (!bookDetail.getTxtFieldTitle().getText().equals("")){
-			return true;
+		if (bookDetail.getTxtFieldTitle().getText().trim().equals("")){
+			return false;
 		}
-		if (!bookDetail.getTxtFieldAuthor().getText().equals("")){
-			return true;
+		if (bookDetail.getTxtFieldAuthor().getText().trim().equals("")){
+			return false;
 		}
-		if (!bookDetail.getTxtFieldPublisher().getText().equals("")){
-			return true;
-		} else
-		return false;
+		if (bookDetail.getTxtFieldPublisher().getText().trim().equals("")){
+			return false;
+		} 
+		return true;
 	}
 	
 	public void displayFrame(){
