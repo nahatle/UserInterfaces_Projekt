@@ -1,5 +1,6 @@
 package controller;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import view.LoanDetailView;
@@ -8,18 +9,17 @@ import domain.Library;
 public class LoanDetailController {
 
 	private Library lib;
-	private LoanDetailView LoanDetailView;
+	private LoanDetailView loanDetailView;
 
 
-	public LoanDetailController(Library library, LoanDetailView loadController){
+	public LoanDetailController(Library library, LoanDetailView loanDetailView){
 		this.lib = library;
-		this.LoanDetailView = loadController;
+		this.loanDetailView = loanDetailView;
 	}
 	
 	
-	public JFrame getLoadController() {
-		// TODO Auto-generated method stub
-		return null;
+	public JComponent getContentPane() {
+		return loanDetailView;
 	}
 
 
