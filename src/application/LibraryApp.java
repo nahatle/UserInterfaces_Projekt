@@ -26,7 +26,7 @@ import domain.Library;
 import domain.Loan;
 import domain.Book;
 import domain.Shelf;
-
+//test
 public class LibraryApp {
 	public static void main(String[] args) throws Exception {
 		final Library library = new Library();
