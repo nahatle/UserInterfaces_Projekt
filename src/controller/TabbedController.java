@@ -10,10 +10,11 @@ public class TabbedController {
 	
 
 
-	public TabbedController(BookMasterController bookMaster){
+	public TabbedController(BookMasterController bookMaster /*LoanDetailController loadController*/){
 		this.bookMaster = bookMaster;
 		tabbedPane = new JTabbedPane();
 		tabbedPane.add(bookMaster.getBookMaster().getContentPane(), "Buecher");
+	//	tabbedPane.add(loadController.getLoadController().getContentPane(), "Ausleihe");
 		frame = new JFrame();
 		displayFrame();
 		
