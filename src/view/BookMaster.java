@@ -133,7 +133,7 @@ public class BookMaster {
 
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		inventoryBooksPanel.add(scrollPane, BorderLayout.WEST);
+		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
