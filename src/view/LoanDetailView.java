@@ -18,7 +18,7 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
 public class LoanDetailView extends JPanel {
-	private JTextField textField;
+	private JTextField txtFldExemplarId;
 
 	/**
 	 * Create the panel.
@@ -86,14 +86,14 @@ public class LoanDetailView extends JPanel {
 		gbc_label_3.gridy = 0;
 		setLoanPanel.add(label_3, gbc_label_3);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtFldExemplarId = new JTextField();
+		txtFldExemplarId.setColumns(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 0;
-		setLoanPanel.add(textField, gbc_textField);
+		setLoanPanel.add(txtFldExemplarId, gbc_textField);
 		
 		JLabel label_4 = new JLabel((String) null);
 		GridBagConstraints gbc_label_4 = new GridBagConstraints();
