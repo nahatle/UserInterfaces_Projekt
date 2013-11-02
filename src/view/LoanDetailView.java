@@ -169,4 +169,9 @@ public class LoanDetailView extends JPanel {
 
 	}
 
+	public JTextField getTxtFldExemplarId() {
+		return txtFldExemplarId;
+	}
+
+	
 }

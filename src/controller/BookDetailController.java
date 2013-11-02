@@ -33,6 +33,7 @@ public class BookDetailController implements Observer{
 		initialize();
 		updateUI();
 		displayFrame();
+		bookDetail.getBtnDeleteBook().setEnabled(false);
 	}
 	
 	
@@ -130,8 +131,10 @@ public class BookDetailController implements Observer{
 			 selectedBook = new Book(bookDetail.getTxtFieldTitle().getText());
 			 selectedBook.setAuthor(bookDetail.getTxtFieldAuthor().getText());
 			 selectedBook.setPublisher(bookDetail.getTxtFieldPublisher().getText());
-			 selectedBook.setShelf((Shelf)bookDetail.getComboBox().getSelectedItem());
+			lib.createAndAddCopy(selectedBook)
+//			 selectedBook.setShelf((Shelf)bookDetail.getComboBox().getSelectedItem());
 			 lib.createAndAddBook(selectedBook);
+			 lib.createAndAddCopy((selectedBook)
 
 		 }})
 			 );
@@ -180,7 +183,6 @@ public class BookDetailController implements Observer{
 	public void updateUI(){
 		bookDetail.getConditionTable().updateUI();
 		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
-	
 	}
 	
 	public boolean isTextfieldValid(){
