@@ -54,6 +54,7 @@ public class Library extends Observable {
 	public Copy createAndAddCopy(Book title) {
 		Copy c = new Copy(title);
 		copies.add(c);
+		doNotify();
 		return c;
 	}
 

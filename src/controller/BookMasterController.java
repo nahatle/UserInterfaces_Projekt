@@ -45,6 +45,7 @@ public class BookMasterController implements Observer {
 		bookMaster.getBtnBearbeiten().setEnabled(false);
 		
 		
+		
 		bookMaster.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 
 			@Override
