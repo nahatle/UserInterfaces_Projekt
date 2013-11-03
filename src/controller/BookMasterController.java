@@ -28,7 +28,7 @@ public class BookMasterController implements Observer {
 
 	private Library lib;
 	private BookMaster bookMaster;
-	private String[] names = {"Titel", "Autor", "Verlag"};
+	private String[] names = {"Verfügbar", "Titel", "Autor", "Verlag"};
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
@@ -87,13 +87,14 @@ public class BookMasterController implements Observer {
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch(columnIndex) {
+				//case 0 noch umschreiben nach verfügbarkeit
 				case 0:
 					return lib.getBooks().get(rowIndex).getName();
-
 				case 1:
-					return lib.getBooks().get(rowIndex).getAuthor();
-					
+					return lib.getBooks().get(rowIndex).getName();
 				case 2:
+					return lib.getBooks().get(rowIndex).getAuthor();
+				case 3:
 					return lib.getBooks().get(rowIndex).getPublisher();
 				}
 				
