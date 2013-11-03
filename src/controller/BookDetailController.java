@@ -146,7 +146,7 @@ public class BookDetailController implements Observer{
 			 );
 	
 	 bookDetail.getBtnDeleteBook().addActionListener(new ActionListener() {
-		//lšschen funktioniert --> "live update" im table noch implementieren
+		//lšschen funktioniert --> "live update" im table noch implementieren!!
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			java.util.List<Copy> copies = lib.getCopiesOfBook(selectedBook);
