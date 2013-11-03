@@ -46,7 +46,7 @@ public class BookMaster {
 	private JLabel numOfCopiesLabel;
 	private JLabel numOfBooksLabel;
 	private JPanel contentPane;
-	private JButton button_1;
+	private JButton btnNeu;
 	private JButton btnBearbeiten;
 	private JLabel lblAnzSelektiert;
 
@@ -125,8 +125,8 @@ public class BookMaster {
 		JCheckBox checkBox = new JCheckBox("Nur Verfuegbare");
 		bookSearchPanel.add(checkBox);
 		
-		button_1 = new JButton("Neues Buch hinzufuegen");
-		bookSearchPanel.add(button_1);
+		btnNeu = new JButton("Neues Buch hinzufuegen");
+		bookSearchPanel.add(btnNeu);
 		
 		btnBearbeiten = new JButton("Bearbeiten...");
 		bookSearchPanel.add(btnBearbeiten);
@@ -156,7 +156,7 @@ public class BookMaster {
 	}
 
 	public JButton getButton() {
-		return button_1;
+		return btnNeu;
 	}
 	
 	public JLabel getNumberOfCopiesLabel() {

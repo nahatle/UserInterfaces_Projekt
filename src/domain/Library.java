@@ -156,6 +156,9 @@ public class Library extends Observable {
 	public List<Customer> getCustomers() {
 		return customers;
 	}
+	public void removeCopy(Copy c){
+		copies.remove(c);
+	}
 
 
 }
