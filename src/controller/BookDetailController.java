@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -9,8 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
-
-import com.sun.tools.javac.util.List;
 
 import view.BookDetail;
 import domain.Book;
@@ -146,13 +145,13 @@ public class BookDetailController implements Observer{
 			 );
 	
 	 bookDetail.getBtnDeleteBook().addActionListener(new ActionListener() {
-		//lšschen funktioniert --> "live update" im table noch implementieren!!
+		//loeschen funktioniert --> "live update" im table noch implementieren!!
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			java.util.List<Copy> copies = lib.getCopiesOfBook(selectedBook);
+			List<Copy> copies = lib.getCopiesOfBook(selectedBook);
 			for(int rowId:bookDetail.getConditionTable().getSelectedRows()){
 				lib.removeCopy(copies.get(rowId));
-				
+				updateUI();
 
 			}
 			

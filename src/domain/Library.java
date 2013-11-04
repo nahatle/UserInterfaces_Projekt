@@ -159,6 +159,7 @@ public class Library extends Observable {
 	}
 	public void removeCopy(Copy c){
 		copies.remove(c);
+		doNotify();
 	}
 
 
