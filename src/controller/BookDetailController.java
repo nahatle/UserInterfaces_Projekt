@@ -133,12 +133,14 @@ public class BookDetailController implements Observer{
 				 selectedBook.setShelf(Shelf.valueOf(bookDetail.getComboBox().getSelectedItem().toString()));
 				 lib.createAndAddBook(selectedBook);
 				 bookDetail.setNew(false);
+				 frame.dispose();
 			 
 			 } else {
 				 selectedBook.setName(bookDetail.getTxtFieldTitle().getText());
 				 selectedBook.setAuthor(bookDetail.getTxtFieldAuthor().getText());
 				 selectedBook.setPublisher(bookDetail.getTxtFieldPublisher().getText());
 				 selectedBook.setShelf(Shelf.valueOf(bookDetail.getComboBox().getSelectedItem().toString()));
+				 frame.dispose();
 			 }
 
 		 }})
