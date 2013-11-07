@@ -117,7 +117,21 @@ public class BookDetailController implements Observer{
 			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 	});
-	
+	 //Delete Button
+	 
+	 bookDetail.getBtnDel().addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			List<Copy> copies = lib.getCopiesOfBook(selectedBook);
+			for(Copy currentCopy : copies){
+				lib.removeCopy(currentCopy);		
+				}
+			lib.removeBook(selectedBook);
+			updateUI();
+			frame.dispose();
+		}
+	});
 	 
 	 //Speicherbutton 
 	 bookDetail.getBtnSave().addActionListener((new ActionListener() {
@@ -146,7 +160,7 @@ public class BookDetailController implements Observer{
 		 }})
 			 );
 	
-	 bookDetail.getBtnDeleteBook().addActionListener(new ActionListener() {
+	 bookDetail.getBtnDeleteCopy().addActionListener(new ActionListener() {
 		//loeschen funktioniert --> "live update" im table noch implementieren!!
 		@Override
 		public void actionPerformed(ActionEvent e) {

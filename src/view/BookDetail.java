@@ -68,6 +68,8 @@ public class BookDetail {
 	private JPanel inventoryActionPanel;
 	private boolean isNew = false;
 	private JButton btnExemplarKopieren;
+	private JPanel buttonPanel;
+	private JButton btnDel;
 
 
 
@@ -85,7 +87,7 @@ public class BookDetail {
 		gbl_BookTitleInformationPanel.columnWidths = new int[] { 0, 0, 0 };
 		gbl_BookTitleInformationPanel.rowHeights = new int[] { 0, 0, 0, 0, 35, 0, 0 };
 		gbl_BookTitleInformationPanel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-		gbl_BookTitleInformationPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_BookTitleInformationPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		BookTitleInformationPanel.setLayout(gbl_BookTitleInformationPanel);
 		
 				lblTitle = new JLabel("Titel");
@@ -155,12 +157,19 @@ public class BookDetail {
 				gbc_comboBox.gridx = 1;
 				gbc_comboBox.gridy = 4;
 				BookTitleInformationPanel.add(comboBox, gbc_comboBox);
-				
-						btnSave = new JButton("Buch speichern");
-						GridBagConstraints gbc_btnSave = new GridBagConstraints();
-						gbc_btnSave.gridx = 1;
-						gbc_btnSave.gridy = 5;
-						BookTitleInformationPanel.add(btnSave, gbc_btnSave);
+										
+										buttonPanel = new JPanel();
+										GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
+										gbc_buttonPanel.fill = GridBagConstraints.BOTH;
+										gbc_buttonPanel.gridx = 1;
+										gbc_buttonPanel.gridy = 5;
+										BookTitleInformationPanel.add(buttonPanel, gbc_buttonPanel);
+								
+										btnSave = new JButton("Buch speichern");
+										buttonPanel.add(btnSave);
+										
+										btnDel = new JButton("Buch entfernen");
+										buttonPanel.add(btnDel);
 
 		InventoryPanel = new JPanel();
 		InventoryPanel.setBorder(new TitledBorder(null, "Anzahl Kopien", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -219,6 +228,10 @@ public class BookDetail {
 
 	}
 
+	public JButton getBtnDel() {
+		return btnDel;
+	}
+
 	public JTable getConditionTable() {
 		return conditionTable;
 	}
@@ -227,7 +240,7 @@ public class BookDetail {
 		return btnSave;
 	}
 
-	public JButton getBtnDeleteBook(){
+	public JButton getBtnDeleteCopy(){
 		return btnDeleteCopy;
 	}
 	

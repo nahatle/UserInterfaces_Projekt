@@ -161,6 +161,11 @@ public class Library extends Observable {
 		copies.remove(c);
 		doNotify();
 	}
+	
+	public void removeBook(Book book){
+		books.remove(book);
+		doNotify();
+	}
 
 
 }
