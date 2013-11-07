@@ -28,7 +28,7 @@ public class BookMasterController implements Observer {
 
 	private Library lib;
 	private BookMaster bookMaster;
-	private String[] names = {"Verfuegbar", "Titel", "Autor", "Verlag"};
+	private String[] names = {"Anzahl Kopien", "Titel", "Autor", "Verlag"};
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
@@ -89,11 +89,7 @@ public class BookMasterController implements Observer {
 				switch(columnIndex) {
 				//case 0 noch umschreiben nach verfuegbarkeit
 				case 0:
-<<<<<<< HEAD
-					return "Hier kommt noch die Ausleihe";
-=======
 					return lib.getCopiesOfBook(lib.getBooks().get(rowIndex)).size();
->>>>>>> 4a8632818e706cb3eb72b3d125a0297766e971f8
 				case 1:
 					return lib.getBooks().get(rowIndex).getName();
 				case 2:
