@@ -149,7 +149,7 @@ public class BookDetailController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			List<Copy> copies = lib.getCopiesOfBook(selectedBook);
-			for(int rowId:bookDetail.getConditionTable().getSelectedRows()){
+			for(int rowId : bookDetail.getConditionTable().getSelectedRows()){
 				lib.removeCopy(copies.get(rowId));
 				updateUI();
 
