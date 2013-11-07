@@ -89,7 +89,7 @@ public class BookMasterController implements Observer {
 				switch(columnIndex) {
 				//case 0 noch umschreiben nach verfügbarkeit
 				case 0:
-					return lib.getBooks().get(rowIndex).getName();
+					return "Hier kommt noch die Ausleihe";
 				case 1:
 					return lib.getBooks().get(rowIndex).getName();
 				case 2:

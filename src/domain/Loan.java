@@ -104,12 +104,17 @@ public class Loan extends Observable{
 		if ( !isLent() )
 			return false;
 		
+		
+		return ( new GregorianCalendar().after(getOverdueDate()));
+	}
+	
+	public GregorianCalendar getOverdueDate() {
 		GregorianCalendar dueDate = (GregorianCalendar) pickupDate.clone();
 		dueDate.add(GregorianCalendar.DAY_OF_YEAR, DAYS_TO_RETURN_BOOK);
 		dueDate.add(GregorianCalendar.HOUR_OF_DAY, 23);
 		dueDate.add(GregorianCalendar.MINUTE, 59);
 		dueDate.add(GregorianCalendar.SECOND, 59);
 		
-		return ( new GregorianCalendar().after(dueDate) );
+		return dueDate;
 	}
 }
