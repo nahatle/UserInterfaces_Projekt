@@ -132,6 +132,7 @@ public class BookDetailController implements Observer{
 				 selectedBook.setPublisher(bookDetail.getTxtFieldPublisher().getText());
 				 selectedBook.setShelf(Shelf.valueOf(bookDetail.getComboBox().getSelectedItem().toString()));
 				 lib.createAndAddBook(selectedBook);
+				 lib.createAndAddCopy(selectedBook);
 				 bookDetail.setNew(false);
 				 frame.dispose();
 			 
@@ -146,6 +147,7 @@ public class BookDetailController implements Observer{
 		 }})
 			 );
 	
+	 //Knopf: Exemplar entfernen
 	 bookDetail.getBtnDeleteBook().addActionListener(new ActionListener() {
 		//loeschen funktioniert --> "live update" im table noch implementieren!!
 		@Override
