@@ -24,11 +24,13 @@ public class BookDetailController implements Observer{
 	private BookDetail bookDetail;
 	private JFrame frame;
 	private Book selectedBook;
+	private Book addNewCopy;
 	private String[] names = {"ID", "Buchzustand"};
 
 	
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
+		this.lib.addObserver(this);
 		this.bookDetail = bookDetail;
 		this.frame = new JFrame();
 		initialize();
@@ -41,6 +43,7 @@ public class BookDetailController implements Observer{
 	public BookDetailController(Library library, BookDetail bookDetail, Book selectedBook){
 		this.lib = library;
 		this.bookDetail = bookDetail;
+		this.lib.addObserver(this);
 		this.frame = new JFrame();
 		this.selectedBook = selectedBook;
 		setBookDetailInTextfield();
@@ -117,8 +120,8 @@ public class BookDetailController implements Observer{
 			bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		}
 	});
-	 //Delete Button
 	 
+	 //Delete Button
 	 bookDetail.getBtnDel().addActionListener(new ActionListener() {
 		
 		@Override
@@ -132,9 +135,18 @@ public class BookDetailController implements Observer{
 			frame.dispose();
 		}
 	});
+	 //Neues Exemplar kopieren
+	 bookDetail.getBtnExemplarKopieren().addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			lib.createAndAddCopy(selectedBook);
+			
+		}
+	});
 	 
 	 //Speicherbutton 
-	 bookDetail.getBtnSave().addActionListener((new ActionListener() {
+	 bookDetail.getBtnSave().addActionListener(new ActionListener() {
 
 		 @Override
 		 public void actionPerformed(ActionEvent e) {
@@ -158,7 +170,7 @@ public class BookDetailController implements Observer{
 				 frame.dispose();
 			 }
 
-		 }})
+		 }}
 			 );
 	
 	 //Knopf: Exemplar entfernen
@@ -188,7 +200,8 @@ public class BookDetailController implements Observer{
 				case 0:
 					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
 				case 1:
-					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getCondition();
+					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
+//					return lib.get
 				}
 				return 0;
 			}
@@ -220,7 +233,8 @@ public class BookDetailController implements Observer{
 	public void updateUI(){
 		bookDetail.getConditionTable().updateUI();
 		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
-	
+		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
+		System.out.println("mongo");
 	}
 	
 	public boolean isTextfieldValid(){
