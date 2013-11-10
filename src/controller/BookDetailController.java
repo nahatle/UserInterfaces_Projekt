@@ -37,6 +37,7 @@ public class BookDetailController implements Observer{
 		updateUI();
 		displayFrame();
 		this.bookDetail.setNew(true);
+		setBtnExemplarKopierenVisibiliy();
 	}
 	
 	
@@ -59,11 +60,19 @@ public class BookDetailController implements Observer{
 		bookDetail.setTxtFieldPublisher(selectedBook.getPublisher());
 		
 	}
+	
+	public void setBtnExemplarKopierenVisibiliy(){
+		if (!bookDetail.isNew()){
+			bookDetail.getBtnExemplarKopieren().setEnabled(true);
+		}else{
+			bookDetail.getBtnExemplarKopieren().setEnabled(false);
+		}
+	}
 
 
 	//Actionlistener kommen hier rein
 	public void initialize(){
-		
+		setBtnExemplarKopierenVisibiliy();
 	 
 		bookDetail.getTxtFieldTitle().getDocument().addDocumentListener(new DocumentListener() {
 		
@@ -140,7 +149,11 @@ public class BookDetailController implements Observer{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			lib.createAndAddCopy(selectedBook);
+//			if (!bookDetail.isNew()){
+				lib.createAndAddCopy(selectedBook);
+//			}else{
+//				bookDetail.getBtnExemplarKopieren().setEnabled(false);
+//			}
 			
 		}
 	});
@@ -234,7 +247,7 @@ public class BookDetailController implements Observer{
 		bookDetail.getConditionTable().updateUI();
 		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
 		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
-		System.out.println("mongo");
+	
 	}
 	
 	public boolean isTextfieldValid(){
