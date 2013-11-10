@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import java.awt.Component;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 public class LoanDetailView extends JPanel {
 	private JTextField txtFldExemplarId;
@@ -44,20 +45,17 @@ public class LoanDetailView extends JPanel {
 		gbc_label.gridy = 0;
 		customerSelectionPanel.add(label, gbc_label);
 		
-		JLabel label_1 = new JLabel("Dieser Kunde hat \u00DCberf\u00E4llige Ausleihen.");
-		label_1.setForeground(Color.RED);
-		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.anchor = GridBagConstraints.NORTHWEST;
-		gbc_label_1.gridwidth = 2;
-		gbc_label_1.insets = new Insets(0, 0, 5, 0);
-		gbc_label_1.gridx = 0;
-		gbc_label_1.gridy = 1;
-		customerSelectionPanel.add(label_1, gbc_label_1);
+		JComboBox comboBox = new JComboBox();
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 1;
+		gbc_comboBox.gridy = 0;
+		customerSelectionPanel.add(comboBox, gbc_comboBox);
 		
 		JLabel label_2 = new JLabel((String) null);
 		label_2.setForeground(Color.RED);
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.insets = new Insets(0, 0, 0, 5);
 		gbc_label_2.anchor = GridBagConstraints.WEST;
 		gbc_label_2.gridwidth = 2;
 		gbc_label_2.gridx = 0;
