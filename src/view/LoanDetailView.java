@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 
 public class LoanDetailView extends JPanel {
 	private JTextField txtFldExemplarId;
+	private JComboBox comboBox;
 
 	/**
 	 * Create the panel.
@@ -45,7 +46,7 @@ public class LoanDetailView extends JPanel {
 		gbc_label.gridy = 0;
 		customerSelectionPanel.add(label, gbc_label);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -169,6 +170,14 @@ public class LoanDetailView extends JPanel {
 
 	public JTextField getTxtFldExemplarId() {
 		return txtFldExemplarId;
+	}
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
+	public void setTxtFldExemplarId(String txtFldExemplarId) {
+		this.txtFldExemplarId.setText(txtFldExemplarId);
 	}
 
 	
