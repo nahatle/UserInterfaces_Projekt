@@ -17,10 +17,12 @@ import java.awt.Component;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 public class LoanDetailView extends JPanel {
 	private JTextField txtFldExemplarId;
 	private JComboBox comboBox;
+	private JTable loanTable;
 
 	/**
 	 * Create the panel.
@@ -165,7 +167,9 @@ public class LoanDetailView extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane((Component) null);
 		getLoanPanel.add(scrollPane, BorderLayout.CENTER);
-
+		
+		loanTable = new JTable();
+		scrollPane.setViewportView(loanTable);
 	}
 
 	public JTextField getTxtFldExemplarId() {
@@ -174,6 +178,10 @@ public class LoanDetailView extends JPanel {
 
 	public JComboBox getComboBox() {
 		return comboBox;
+	}
+	
+	public JTable getLoanTable() {
+		return loanTable;
 	}
 
 	public void setTxtFldExemplarId(String txtFldExemplarId) {
