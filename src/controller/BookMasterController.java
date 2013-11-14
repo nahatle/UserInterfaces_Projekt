@@ -157,7 +157,7 @@ public class BookMasterController implements Observer {
 		bookMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(bookMaster.getTable().getModel());
 		//Filtern der Tabelle, Suchfunktion
-		sorter.setRowFilter(RowFilter.regexFilter(bookMaster.getTextField().getText()));
+		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
 		
 		
 

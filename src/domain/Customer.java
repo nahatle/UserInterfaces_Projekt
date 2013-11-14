@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Observable;
 
-public class Customer extends Observable {
+public class Customer extends Observable implements Comparable<Customer> {
 	
 	private String name, surname, street, city;
 	private int zip;
@@ -61,6 +61,11 @@ public class Customer extends Observable {
 	@Override
 	public String toString() {
 		return name + " " + surname + " , " + street + " , " + zip + " " + city;
+	}
+
+	@Override
+	public int compareTo(Customer o) {
+		return getName().compareTo(o.getName());
 	}
 
 }

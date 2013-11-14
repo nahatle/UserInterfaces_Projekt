@@ -17,9 +17,12 @@ import java.awt.Component;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 public class LoanDetailView extends JPanel {
 	private JTextField txtFldExemplarId;
+	private JComboBox comboBox;
+	private JTable loanTable;
 
 	/**
 	 * Create the panel.
@@ -45,7 +48,7 @@ public class LoanDetailView extends JPanel {
 		gbc_label.gridy = 0;
 		customerSelectionPanel.add(label, gbc_label);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -164,11 +167,25 @@ public class LoanDetailView extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane((Component) null);
 		getLoanPanel.add(scrollPane, BorderLayout.CENTER);
-
+		
+		loanTable = new JTable();
+		scrollPane.setViewportView(loanTable);
 	}
 
 	public JTextField getTxtFldExemplarId() {
 		return txtFldExemplarId;
+	}
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+	
+	public JTable getLoanTable() {
+		return loanTable;
+	}
+
+	public void setTxtFldExemplarId(String txtFldExemplarId) {
+		this.txtFldExemplarId.setText(txtFldExemplarId);
 	}
 
 	
