@@ -176,7 +176,7 @@ public class BookMaster {
 	
 	
 	public void setLblAnzSelektiert(int number) {
-		lblAnzSelektiert.setText("Ausgewaehlt: " + number);
+		lblAnzSelektiert.setText("Ausgewählt: " + number);
 	}
 
 }

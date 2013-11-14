@@ -17,10 +17,12 @@ import org.xml.sax.SAXException;
 import controller.BookDetailController;
 import controller.BookMasterController;
 import controller.LoanDetailController;
+import controller.LoanMasterController;
 import controller.TabbedController;
 import view.BookDetail;
 import view.BookMaster;
 import view.LoanDetailView;
+import view.LoanMaster;
 import domain.Copy;
 import domain.Customer;
 import domain.IllegalLoanOperationException;
@@ -38,8 +40,8 @@ public class LibraryApp {
 					try {
 
 						BookMasterController bookMasterController = new BookMasterController(library, new BookMaster());
-						LoanDetailController loanDetailController = new LoanDetailController(library, new LoanDetailView());
-						TabbedController tcontroll = new TabbedController(bookMasterController, loanDetailController);
+						LoanMasterController loanMasterController = new LoanMasterController(library, new LoanMaster());
+						TabbedController tcontroll = new TabbedController(bookMasterController, loanMasterController);
 //						BookDetailController bookDetailController = new BookDetailController(library, new BookDetail());
 //						BookDetail detail = new BookDetail(library);
 //						detail.frame.setVisible(true);
