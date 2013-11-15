@@ -3,6 +3,7 @@ package controller;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,8 +26,9 @@ import domain.Library;
 public class LoanMasterController implements Observer {
 
 	private Library lib;
-	private String[] names = {"Anzahl Kopien", "Titel", "Autor", "Verlag"};
+	private String[] names = {"Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde"};
 	private LoanMaster loanMaster;
+	private GregorianCalendar returnDate;
 
 
 	public LoanMasterController(Library library, LoanMaster loanMaster){
@@ -89,13 +91,17 @@ public class LoanMasterController implements Observer {
 				switch(columnIndex) {
 				//case 0 noch umschreiben nach verfuegbarkeit
 				case 0:
-					return lib.getCopiesOfBook(lib.getBooks().get(rowIndex)).size();
+					return "kommt noch";
 				case 1:
-					return lib.getBooks().get(rowIndex).getName();
+					return lib.getLoans().get(rowIndex).getCopy().getInventoryNumber();
 				case 2:
-					return lib.getBooks().get(rowIndex).getAuthor();
+					return lib.getLoans().get(rowIndex).getCopy().getTitle();
 				case 3:
-					return lib.getBooks().get(rowIndex).getPublisher();
+
+					return lib.getLoans().get(rowIndex).getOverdueDate();
+			 
+				case 4:
+					return lib.getLoans().get(rowIndex).getCustomer().getName() + ", " + lib.getLoans().get(rowIndex).getCustomer().getSurname();
 				}
 				
 				return 0;
