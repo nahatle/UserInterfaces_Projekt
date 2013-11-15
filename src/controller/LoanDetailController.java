@@ -1,13 +1,9 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
-import javax.swing.event.ListDataListener;
 
 import view.LoanDetailView;
 import domain.Customer;
@@ -34,8 +30,8 @@ public class LoanDetailController {
 	}
 	
 	
-	public DefaultComboBoxModel<Customer> getCustomerModel() {
-		DefaultComboBoxModel<Customer> customerModel = new DefaultComboBoxModel<Customer>();
+	public DefaultComboBoxModel getCustomerModel() {
+		DefaultComboBoxModel customerModel = new DefaultComboBoxModel();
 		List<Customer> customerList = lib.getCustomers();
 		for (Customer c : customerList) {
 			customerModel.addElement(c);

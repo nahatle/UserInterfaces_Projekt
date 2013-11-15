@@ -3,28 +3,23 @@ package controller;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import domain.Library;
-import view.BookDetail;
 import view.LoanDetailView;
 import view.LoanMaster;
+
+import com.sun.imageio.plugins.png.RowFilter;
+
+import domain.Library;
 
 public class LoanMasterController implements Observer {
 
@@ -160,7 +155,7 @@ public class LoanMasterController implements Observer {
 		loanMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(loanMaster.getTable().getModel());
 		//Filtern der Tabelle, Suchfunktion
-		sorter.setRowFilter(RowFilter.regexFilter(loanMaster.getTextField().getText()));
+		//sorter.setRowFilter(RowFilter.regexFilter("(?i)" + loanMaster.getTextField().getText()));
 		
 		
 
