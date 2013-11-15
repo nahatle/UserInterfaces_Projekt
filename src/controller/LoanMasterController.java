@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -48,7 +49,6 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				loanMaster.setLblAnzSelektiert(loanMaster.getTable().getSelectedRowCount());
 				if(loanMaster.getTable().getSelectedRows().length > 0){
 					loanMaster.getBtnSelektierteAusleiheAnzeigen().setEnabled(true);
 				} else
@@ -123,7 +123,7 @@ public class LoanMasterController implements Observer {
 			}
 
 		});
-		
+		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loanMaster.getTextField().getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
@@ -147,7 +147,6 @@ public class LoanMasterController implements Observer {
 		//Dynamisch Buecher zaehlen
 //		loanMaster.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());
 //		loanMaster.getNumberOfCopiesLabel().setText(new Integer(lib.getCopies().size()).toString());
-		loanMaster.setLblAnzSelektiert(loanMaster.getTable().getSelectedRowCount());
 		
 		//Tabelle ins Frame 
 		loanMaster.getTable().updateUI();

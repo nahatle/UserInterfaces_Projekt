@@ -31,11 +31,9 @@ public class LoanMaster {
 	private JTextField textField;
 	private JTable table;
 	private JLabel numAktuellAusgeliehen;
-	private JLabel numAnzahlAusleihen;
 	private JPanel contentPane;
 	private JButton btnNeueAusleiheErfassen;
 	private JButton btnSelektierteAusleiheAnzeigen;
-	private JLabel lblAnzSelect;
 
 
 
@@ -54,69 +52,40 @@ public class LoanMaster {
 		contentPane.add(inventoryStatsPanel, BorderLayout.NORTH);
 		GridBagLayout gbl_inventoryStatsPanel = new GridBagLayout();
 		gbl_inventoryStatsPanel.columnWidths = new int[]{110, 40, 140};
-		gbl_inventoryStatsPanel.rowHeights = new int[]{0, 0, 0};
+		gbl_inventoryStatsPanel.rowHeights = new int[]{0, 0};
 		gbl_inventoryStatsPanel.columnWeights = new double[]{1.0, 1.0, 1.0};
-		gbl_inventoryStatsPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_inventoryStatsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		inventoryStatsPanel.setLayout(gbl_inventoryStatsPanel);
 		
-		JLabel lblAnzahlAusleihen = new JLabel("Anzahl Ausleihen: ");
-		lblAnzahlAusleihen.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblAnzahlAusleihen = new GridBagConstraints();
-		gbc_lblAnzahlAusleihen.anchor = GridBagConstraints.WEST;
-		gbc_lblAnzahlAusleihen.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAnzahlAusleihen.gridx = 0;
-		gbc_lblAnzahlAusleihen.gridy = 0;
-		inventoryStatsPanel.add(lblAnzahlAusleihen, gbc_lblAnzahlAusleihen);
+		JLabel lbUeberberfaelligeAusleihen = new JLabel("\u00DCberf\u00E4llige Ausleihen: ");
+		lbUeberberfaelligeAusleihen.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lbUeberberfaelligeAusleihen = new GridBagConstraints();
+		gbc_lbUeberberfaelligeAusleihen.anchor = GridBagConstraints.WEST;
+		gbc_lbUeberberfaelligeAusleihen.insets = new Insets(0, 0, 0, 5);
+		gbc_lbUeberberfaelligeAusleihen.gridx = 0;
+		gbc_lbUeberberfaelligeAusleihen.gridy = 0;
+		inventoryStatsPanel.add(lbUeberberfaelligeAusleihen, gbc_lbUeberberfaelligeAusleihen);
 		
-		numAnzahlAusleihen = new JLabel();
-		GridBagConstraints gbc_numAnzahlAusleihen = new GridBagConstraints();
-		gbc_numAnzahlAusleihen.insets = new Insets(0, 0, 5, 5);
-		gbc_numAnzahlAusleihen.gridx = 1;
-		gbc_numAnzahlAusleihen.gridy = 0;
-		inventoryStatsPanel.add(numAnzahlAusleihen, gbc_numAnzahlAusleihen);
+		JLabel numUeberfaelligeAusleihen = new JLabel();
+		GridBagConstraints gbc_numUeberfaelligeAusleihen = new GridBagConstraints();
+		gbc_numUeberfaelligeAusleihen.insets = new Insets(0, 0, 0, 5);
+		gbc_numUeberfaelligeAusleihen.gridx = 1;
+		gbc_numUeberfaelligeAusleihen.gridy = 0;
+		inventoryStatsPanel.add(numUeberfaelligeAusleihen, gbc_numUeberfaelligeAusleihen);
 		
 		JLabel lblAktuellAusgeliehen = new JLabel("Aktuell Ausgeliehen:");
 		GridBagConstraints gbc_lblAktuellAusgeliehen = new GridBagConstraints();
 		gbc_lblAktuellAusgeliehen.anchor = GridBagConstraints.WEST;
-		gbc_lblAktuellAusgeliehen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAktuellAusgeliehen.insets = new Insets(0, 0, 0, 5);
 		gbc_lblAktuellAusgeliehen.gridx = 2;
 		gbc_lblAktuellAusgeliehen.gridy = 0;
 		inventoryStatsPanel.add(lblAktuellAusgeliehen, gbc_lblAktuellAusgeliehen);
 		
 		numAktuellAusgeliehen = new JLabel();
 		GridBagConstraints gbc_numAktuellAusgeliehen = new GridBagConstraints();
-		gbc_numAktuellAusgeliehen.insets = new Insets(0, 0, 5, 0);
 		gbc_numAktuellAusgeliehen.gridx = 3;
 		gbc_numAktuellAusgeliehen.gridy = 0;
-		gbc_numAnzahlAusleihen.insets = new Insets(0, 0, 5, 0);
-		gbc_numAnzahlAusleihen.gridx = 3;
-		gbc_numAnzahlAusleihen.gridy = 0;
 		inventoryStatsPanel.add(numAktuellAusgeliehen, gbc_numAktuellAusgeliehen);
-		
-		JLabel lblberflligeAusleihen = new JLabel("\u00DCberf\u00E4llige Ausleihen: ");
-		lblberflligeAusleihen.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblberflligeAusleihen = new GridBagConstraints();
-		gbc_lblberflligeAusleihen.anchor = GridBagConstraints.WEST;
-		gbc_lblberflligeAusleihen.insets = new Insets(0, 0, 0, 5);
-		gbc_lblberflligeAusleihen.gridx = 0;
-		gbc_lblberflligeAusleihen.gridy = 1;
-		inventoryStatsPanel.add(lblberflligeAusleihen, gbc_lblberflligeAusleihen);
-		
-		JLabel numberflligeAusleihen = new JLabel();
-		GridBagConstraints gbc_numberflligeAusleihen = new GridBagConstraints();
-		gbc_numberflligeAusleihen.insets = new Insets(0, 0, 0, 5);
-		gbc_numberflligeAusleihen.gridx = 1;
-		gbc_numberflligeAusleihen.gridy = 1;
-		inventoryStatsPanel.add(numberflligeAusleihen, gbc_numberflligeAusleihen);
-		
-		lblAnzSelect = new JLabel();
-		lblAnzSelect.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblAnzSelect = new GridBagConstraints();
-		gbc_lblAnzSelect.anchor = GridBagConstraints.WEST;
-		gbc_lblAnzSelect.insets = new Insets(0, 0, 0, 5);
-		gbc_lblAnzSelect.gridx = 2;
-		gbc_lblAnzSelect.gridy = 1;
-		inventoryStatsPanel.add(lblAnzSelect, gbc_lblAnzSelect);
 		
 		JPanel inventoryBooksPanel = new JPanel();
 		inventoryBooksPanel.setBorder(new TitledBorder(null, "Buch Inventar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -177,9 +146,9 @@ public class LoanMaster {
 		return numAktuellAusgeliehen;
 	}
 
-	public JLabel getNumAnzahlAusleihen() {
-		return numAnzahlAusleihen;
-	}
+//	public JLabel getNumAnzahlAusleihen() {
+//		return numAnzahlAusleihen;
+//	}
 
 	public JPanel getContentPane() {
 		return contentPane;
@@ -187,12 +156,12 @@ public class LoanMaster {
 	public JTable getTable() {
 		return table;
 	}
-	public JLabel getLblAnzSelect() {
-		return lblAnzSelect;
-	}
-	
-	public void setLblAnzSelektiert(int number) {
-		lblAnzSelect.setText("Ausgewaehlt: " + number);
-	}
+//	public JLabel getLblAnzSelect() {
+//		return lblAnzSelect;
+//	}
+//	
+//	public void setLblAnzSelektiert(int number) {
+//		lblAnzSelect.setText("Ausgewaehlt: " + number);
+//	}
 
 }
