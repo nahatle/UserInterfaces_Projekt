@@ -19,19 +19,23 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
-public class LoanDetailView extends JPanel {
+public class LoanDetailView {
 	private JTextField txtFldExemplarId;
 	private JComboBox comboBox;
 	private JTable loanTable;
+	private JPanel contentPane;
 
-	/**
-	 * Create the panel.
-	 */
+	
 	public LoanDetailView() {
-		setLayout(new BorderLayout(0, 0));
-		
+		initialize();
+	}
+	
+	private void initialize(){
+		contentPane = new JPanel();
+		contentPane.setLayout(new BorderLayout(0, 0));
+
 		JPanel customerSelectionPanel = new JPanel();
-		add(customerSelectionPanel, BorderLayout.NORTH);
+		contentPane.add(customerSelectionPanel, BorderLayout.NORTH);
 		customerSelectionPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Kundenauswahl", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_customerSelectionPanel = new GridBagLayout();
 		gbl_customerSelectionPanel.columnWidths = new int[]{0, 0, 0};
@@ -39,6 +43,7 @@ public class LoanDetailView extends JPanel {
 		gbl_customerSelectionPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_customerSelectionPanel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		customerSelectionPanel.setLayout(gbl_customerSelectionPanel);
+
 		
 		JLabel label = new JLabel("Kunde:");
 		GridBagConstraints gbc_label = new GridBagConstraints();
@@ -56,17 +61,8 @@ public class LoanDetailView extends JPanel {
 		gbc_comboBox.gridy = 0;
 		customerSelectionPanel.add(comboBox, gbc_comboBox);
 		
-		JLabel label_2 = new JLabel((String) null);
-		label_2.setForeground(Color.RED);
-		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.anchor = GridBagConstraints.WEST;
-		gbc_label_2.gridwidth = 2;
-		gbc_label_2.gridx = 0;
-		gbc_label_2.gridy = 2;
-		customerSelectionPanel.add(label_2, gbc_label_2);
-		
 		JPanel loanDetailPanel = new JPanel();
-		add(loanDetailPanel, BorderLayout.CENTER);
+		contentPane.add(loanDetailPanel, BorderLayout.CENTER);
 		loanDetailPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel setLoanPanel = new JPanel();
@@ -142,19 +138,19 @@ public class LoanDetailView extends JPanel {
 		gbl_panel_3.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
-		JLabel label_7 = new JLabel("Anzahl Ausleihen:");
-		GridBagConstraints gbc_label_7 = new GridBagConstraints();
-		gbc_label_7.insets = new Insets(0, 0, 5, 5);
-		gbc_label_7.gridx = 0;
-		gbc_label_7.gridy = 0;
-		panel_3.add(label_7, gbc_label_7);
+		JLabel lblAnzAusleieh = new JLabel("Anzahl Ausleihen:");
+		GridBagConstraints gbc_lblAnzAusleieh = new GridBagConstraints();
+		gbc_lblAnzAusleieh.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAnzAusleieh.gridx = 0;
+		gbc_lblAnzAusleieh.gridy = 0;
+		panel_3.add(lblAnzAusleieh, gbc_lblAnzAusleieh);
 		
-		JLabel label_8 = new JLabel("0");
-		GridBagConstraints gbc_label_8 = new GridBagConstraints();
-		gbc_label_8.insets = new Insets(0, 0, 5, 5);
-		gbc_label_8.gridx = 1;
-		gbc_label_8.gridy = 0;
-		panel_3.add(label_8, gbc_label_8);
+		JLabel lblFktAnzAusleihen = new JLabel("0");
+		GridBagConstraints gbc_lblFktAnzAusleihen = new GridBagConstraints();
+		gbc_lblFktAnzAusleihen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFktAnzAusleihen.gridx = 1;
+		gbc_lblFktAnzAusleihen.gridy = 0;
+		panel_3.add(lblFktAnzAusleihen, gbc_lblFktAnzAusleihen);
 		
 		JButton button_1 = new JButton("Exemplar zur\u00FCckgeben");
 		button_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -165,11 +161,12 @@ public class LoanDetailView extends JPanel {
 		gbc_button_1.gridy = 0;
 		panel_3.add(button_1, gbc_button_1);
 		
-		JScrollPane scrollPane = new JScrollPane((Component) null);
+		JScrollPane scrollPane = new JScrollPane();
 		getLoanPanel.add(scrollPane, BorderLayout.CENTER);
 		
 		loanTable = new JTable();
 		scrollPane.setViewportView(loanTable);
+
 	}
 
 	public JTextField getTxtFldExemplarId() {
@@ -182,6 +179,10 @@ public class LoanDetailView extends JPanel {
 	
 	public JTable getLoanTable() {
 		return loanTable;
+	}
+	
+	public JPanel getContentPane(){
+		return contentPane;
 	}
 
 	public void setTxtFldExemplarId(String txtFldExemplarId) {

@@ -16,6 +16,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import view.LoanDetail;
 import view.LoanDetailView;
 import view.LoanMaster;
 
@@ -29,6 +30,7 @@ public class LoanMasterController implements Observer {
 	private String[] names = {"Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde"};
 	private LoanMaster loanMaster;
 	private GregorianCalendar returnDate;
+	private LoanDetailView loanDetailView;
 
 
 	public LoanMasterController(Library library, LoanMaster loanMaster){
@@ -43,6 +45,16 @@ public class LoanMasterController implements Observer {
 	private void initialize(){
 		
 		loanMaster.getBtnSelektierteAusleiheAnzeigen().setEnabled(false);
+		
+		loanMaster.getBtnAusleiheErfassen().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("test");
+				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView() );
+			}
+		});
 		
 		
 		
@@ -60,27 +72,14 @@ public class LoanMasterController implements Observer {
 			
 		});
 			
-		loanMaster.getBtnSelektierteAusleiheAnzeigen().addActionListener((new ActionListener() {
+		loanMaster.getBtnSelektierteAusleiheAnzeigen().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView());
 			}
+		});
 
-		})
-				);
-		
-		loanMaster.getBtnAusleiheErfassen().addActionListener((new ActionListener() {
-		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(int rowId:loanMaster.getTable().getSelectedRows()){
-					LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView());
-				}
-				}
-
-		})
-				);
 
 		loanMaster.getTable().setModel(new AbstractTableModel() {
 
@@ -128,7 +127,7 @@ public class LoanMasterController implements Observer {
 
 		});
 		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		loanMaster.getTextField().getDocument().addDocumentListener(new DocumentListener() {
+		loanMaster.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override
 			public void removeUpdate(DocumentEvent e) {

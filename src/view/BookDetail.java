@@ -180,9 +180,7 @@ public class BookDetail {
 		inventoryActionPanel = new JPanel();
 		InventoryPanel.add(inventoryActionPanel, BorderLayout.NORTH);
 
-		//lblNewLabel = new JLabel("Anzahl Kopien:");
-		//inventoryActionPanel.add(lblNewLabel);
-		//lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+
 
 		lblNumberOfCopies = new JLabel();
 		inventoryActionPanel.add(lblNumberOfCopies);
@@ -216,15 +214,6 @@ public class BookDetail {
 		detailScrollPane = new JScrollPane(conditionTable);
 		InventoryPanel.add(detailScrollPane, BorderLayout.CENTER);
 		detailScrollPane.setViewportView(conditionTable);
-
-		//
-		//		JScrollPane scrollPane = new JScrollPane(table);
-		//		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
-		//
-		//		table = new JTable();
-		//		scrollPane.setViewportView(table);
-		//		scrollPane = new JScrollPane();
-		//		InventoryPanel.add(scrollPane);
 
 	}
 

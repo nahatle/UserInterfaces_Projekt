@@ -27,8 +27,7 @@ public class LoanMaster {
 	}
 
 
-	private int number;
-	private JTextField textField;
+	private JTextField searchTextField;
 	private JTable table;
 	private JLabel numAktuellAusgeliehen;
 	private JPanel contentPane;
@@ -101,9 +100,9 @@ public class LoanMaster {
 		bookSearchPanel.add(label);
 		label.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		textField = new JTextField();
-		bookSearchPanel.add(textField);
-		textField.setColumns(10);
+		searchTextField = new JTextField();
+		bookSearchPanel.add(searchTextField);
+		searchTextField.setColumns(10);
 		
 		JCheckBox chckbxNurberfllige = new JCheckBox("Nur \u00DCberf\u00E4llige");
 		bookSearchPanel.add(chckbxNurberfllige);
@@ -122,16 +121,12 @@ public class LoanMaster {
 		scrollPane.setViewportView(table);
 	
 		
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
+
 
 	}
 	
-	public JTextField getTextField() {
-		return textField;
+	public JTextField getSearchTextField() {
+		return searchTextField;
 	}
 
 	public JButton getBtnSelektierteAusleiheAnzeigen() {

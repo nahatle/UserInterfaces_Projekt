@@ -114,7 +114,7 @@ public class BookMaster {
 		lblAnzSelektiert.setHorizontalAlignment(SwingConstants.LEFT);
 		bookSearchPanel.add(lblAnzSelektiert);
 		
-		JLabel label = new JLabel("Buch suchen:");
+		JLabel label = new JLabel("Buch suchen: ");
 		bookSearchPanel.add(label);
 		label.setHorizontalAlignment(SwingConstants.LEFT);
 		
@@ -176,7 +176,7 @@ public class BookMaster {
 	
 	
 	public void setLblAnzSelektiert(int number) {
-		lblAnzSelektiert.setText("Ausgewählt: " + number);
+		lblAnzSelektiert.setText("Ausgew√§hlt: " + number);
 	}
 
 }
