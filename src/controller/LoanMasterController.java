@@ -97,9 +97,7 @@ public class LoanMasterController implements Observer {
 				case 2:
 					return lib.getLoans().get(rowIndex).getCopy().getTitle();
 				case 3:
-
-					return lib.getLoans().get(rowIndex).getOverdueDate();
-			 
+					return lib.getLoans().get(rowIndex).getOverdueDate().getTime();
 				case 4:
 					return lib.getLoans().get(rowIndex).getCustomer().getName() + ", " + lib.getLoans().get(rowIndex).getCustomer().getSurname();
 				}
