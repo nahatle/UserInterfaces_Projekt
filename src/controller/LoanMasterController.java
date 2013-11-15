@@ -82,6 +82,8 @@ public class LoanMasterController implements Observer {
 
 		loanMaster.getTable().setModel(new AbstractTableModel() {
 
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch(columnIndex) {
