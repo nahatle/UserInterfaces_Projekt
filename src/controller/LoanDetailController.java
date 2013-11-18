@@ -3,12 +3,9 @@ package controller;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-
-import view.LoanDetail;
 import view.LoanDetailView;
 import domain.Customer;
 import domain.Library;

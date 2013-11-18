@@ -15,8 +15,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
-import view.LoanDetail;
 import view.LoanDetailView;
 import view.LoanMaster;
 
@@ -51,8 +49,8 @@ public class LoanMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("test");
-				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView() );
+//				System.out.println("test");
+//				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView() );
 			}
 		});
 		
