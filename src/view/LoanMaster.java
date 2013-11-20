@@ -141,22 +141,12 @@ public class LoanMaster {
 		return numAktuellAusgeliehen;
 	}
 
-//	public JLabel getNumAnzahlAusleihen() {
-//		return numAnzahlAusleihen;
-//	}
-
 	public JPanel getContentPane() {
 		return contentPane;
 	}
 	public JTable getTable() {
 		return table;
 	}
-//	public JLabel getLblAnzSelect() {
-//		return lblAnzSelect;
-//	}
-//	
-//	public void setLblAnzSelektiert(int number) {
-//		lblAnzSelect.setText("Ausgewaehlt: " + number);
-//	}
+
 
 }

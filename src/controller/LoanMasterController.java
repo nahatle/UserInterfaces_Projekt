@@ -7,20 +7,23 @@ import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import view.BookDetail;
 import view.LoanDetailView;
 import view.LoanMaster;
-
-import com.sun.imageio.plugins.png.RowFilter;
-
 import domain.Library;
+import domain.Loan;
 
 public class LoanMasterController implements Observer {
 
@@ -37,6 +40,7 @@ public class LoanMasterController implements Observer {
 		initialize();
 		updateUI();
 		lib.addObserver(this);
+		
 	}
 
 
@@ -48,9 +52,7 @@ public class LoanMasterController implements Observer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-//				System.out.println("test");
-//				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView() );
+				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView() );
 			}
 		});
 		
@@ -74,8 +76,9 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView());
-			}
+				int rowIndex = loanMaster.getTable().getSelectedRow();
+					LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView(), lib.getLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex)));
+				}
 		});
 
 
@@ -85,23 +88,31 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
+			Loan loan = lib.getLoans().get(rowIndex);
 				switch(columnIndex) {
 				//case 0 noch umschreiben nach verfuegbarkeit
 				case 0:
-					return "kommt noch";
+					   GregorianCalendar returnDate = loan.getOverdueDate();
+			            if (loan.isOverdue()) {
+			                int daysOverdue = loan.getDaysOverdue();
+			                return ("(Fällig - seit " + daysOverdue + " Tagen)");
+			            } else {
+			                return ("OK");
+			            }
 				case 1:
-					return lib.getLoans().get(rowIndex).getCopy().getInventoryNumber();
+					return loan.getCopy().getInventoryNumber();
 				case 2:
-					return lib.getLoans().get(rowIndex).getCopy().getTitle();
+					return loan.getCopy().getTitle();
 				case 3:
-					return lib.getLoans().get(rowIndex).getOverdueDate().getTime();
+					return loan.getOverdueDate().getTime();
 				case 4:
-					return lib.getLoans().get(rowIndex).getCustomer().getName() + ", " + lib.getLoans().get(rowIndex).getCustomer().getSurname();
+					return loan.getCustomer().getName() + ", " + loan.getCustomer().getSurname();
 				}
 				
 				return 0;
 			}
 
+			
 			@Override
 			public int getRowCount() {
 				return lib.getBooks().size();
@@ -120,10 +131,16 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
-				return getValueAt(0, columnIndex).getClass();
+				if(columnIndex != 1){
+					return getValueAt(0, columnIndex).getClass();
+				}else{
+					return String.class;
+				}
 			}
 
 		});
+		
+		
 		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loanMaster.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -156,14 +173,15 @@ public class LoanMasterController implements Observer {
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
 		loanMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(loanMaster.getTable().getModel());
+	
 		//Filtern der Tabelle, Suchfunktion
 		//sorter.setRowFilter(RowFilter.regexFilter("(?i)" + loanMaster.getTextField().getText()));
 		
 		
 
 	}
-
-
+	
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		updateUI();
