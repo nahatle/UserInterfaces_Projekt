@@ -25,8 +25,10 @@ public class Library extends Observable {
 		if (!isCopyLent(copy)) {
 			Loan l = new Loan(customer, copy);
 			loans.add(l);
+			doNotify();
 			return l;
 		} else {
+			System.out.println("kein buch mehr vorthanden");
 			return null;
 		}
 	}
