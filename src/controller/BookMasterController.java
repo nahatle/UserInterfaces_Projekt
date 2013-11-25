@@ -37,7 +37,13 @@ public class BookMasterController implements Observer {
 	private void initialize(){
 		
 		bookMaster.getBtnBearbeiten().setEnabled(false);
-		
+		bookMaster.getCheckBoxNurVerfuegbare().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTableItems();
+			}
+		});
 		
 		
 		bookMaster.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -76,12 +82,13 @@ public class BookMasterController implements Observer {
 		})
 				);
 
+		
+		
 		bookMaster.getTable().setModel(new AbstractTableModel() {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch(columnIndex) {
-				//case 0 noch umschreiben nach verfuegbarkeit
 				case 0:
 					return lib.getCopiesOfBook(lib.getBooks().get(rowIndex)).size();
 				case 1:
@@ -137,6 +144,7 @@ public class BookMasterController implements Observer {
 		});
 	}
 
+
 	private void updateUI(){
 		//Dynamisch Buecher zaehlen
 		bookMaster.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());
@@ -146,20 +154,33 @@ public class BookMasterController implements Observer {
 		//Tabelle ins Frame 
 		bookMaster.getTable().updateUI();
 		
-		//Sortieren der Tabelle
-		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
-		bookMaster.getTable().setRowSorter(sorter);
-		sorter.setModel(bookMaster.getTable().getModel());
-		//Filtern der Tabelle, Suchfunktion
-		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
-		
-		
+		setTableItems();
 
 	}
-
-
+	
+	public void setTableItems(){
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		bookMaster.getTable().setRowSorter(sorter);	
+		sorter.setModel(bookMaster.getTable().getModel());
+		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
+		
+		//Wenn checkbox selektiert wird
+		if (bookMaster.getCheckBoxNurVerfuegbare().isSelected()){
+			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
+				public boolean include(Entry entry){
+					int i =  (int) entry.getIdentifier();
+					return !(lib.getLoans().get(i).isLent());
+				}
+			};
+			sorter.setRowFilter(filter);
+		} 
+		
+	}
+	
+	
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("BookmasterContoller UpdateUI ausgefuehrt");
 		updateUI();
 	}
 

@@ -75,9 +75,7 @@ public class LibraryApp {
 		int lentBooksPercentage = (int)(((double)library.getLentOutBooks().size()) / library.getCopies().size() * 100);
 		System.out.println("Percent copies on loan: " + lentBooksPercentage + "%");
 		System.out.println("Copies currently overdue: " + library.getOverdueLoans().size());
-		
-		for(Loan l : library.getOverdueLoans())
-			System.out.println(l.getDaysOverdue());
+
 	}
 
 	private static void createBooksAndLoans(Library library)

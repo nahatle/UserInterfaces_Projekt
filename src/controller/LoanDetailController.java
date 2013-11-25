@@ -8,9 +8,12 @@ import java.util.Observer;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
 import view.LoanDetailView;
+import domain.Book;
 import domain.Copy;
 import domain.Customer;
 import domain.Library;
@@ -30,9 +33,9 @@ public class LoanDetailController implements Observer {
 		frame = new JFrame();
 		this.lib = library;
 		this.loanDetailView = loanDetailView;
+//		lib.addObserver(this);
 		initialize();
 		updateUI();
-		lib.addObserver(this);
 		displayFrame();
 	}
 
@@ -42,6 +45,7 @@ public class LoanDetailController implements Observer {
 		lib.addObserver(this);
 		this.loanDetailView = loanDetailView;
 		this.selectedLoan = selectedLoan;
+//		lib.addObserver(this);
 		initialize();
 		updateUI();
 		setCustomerInCombobox(selectedLoan);
@@ -67,6 +71,25 @@ public class LoanDetailController implements Observer {
 
 			}
 		});
+		
+//		loanDetailView.getTxtFldExemplarId().getDocument().addDocumentListener(new DocumentListener() {
+//			
+//			@Override
+//			public void removeUpdate(DocumentEvent e) {
+//				loanDetailView.getBtnExemplarAusleihen().setEnabled(isTextfieldValid());
+//			}
+//			
+//			@Override
+//			public void insertUpdate(DocumentEvent e) {
+//				loanDetailView.getBtnExemplarAusleihen().setEnabled(isTextfieldValid());
+//			}
+//			
+//			@Override
+//			public void changedUpdate(DocumentEvent e) {
+//				loanDetailView.getBtnExemplarAusleihen().setEnabled(isTextfieldValid());
+//			}
+//		});
+		
 
 		loanDetailView.getLoanTable().setModel(new AbstractTableModel() {
 
@@ -79,11 +102,9 @@ public class LoanDetailController implements Observer {
 				case 0:
 					return lib.getCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(rowIndex).getCopy().getInventoryNumber();
 				case 1:
-					return lib.getCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(rowIndex).getCopy().getTitle();
+					return lib.getCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(rowIndex).getCopy().getBook().getName();
 				case 2:
-					return "kommt noch";
-					// return
-					// lib.getCustomerLoans((Customer)(loanDetailView.getComboBox().getSelectedItem())).get(rowIndex).get;
+					return lib.getCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(rowIndex).getCopy().getBook().getAuthor();
 				}
 				return 0;
 			}
@@ -128,10 +149,21 @@ public class LoanDetailController implements Observer {
 		}
 		return customerModel;
 	}
-
+ //VALIDIERUNG EXEMPLAR BUTTON
+//	private boolean isTextfieldValid(){
+//		for (Copy actualCopy : lib.getLentOutBooks()){
+//		if(Integer.parseInt(loanDetailView.getTxtFldExemplarId().getText()) == (actualCopy.getInventoryNumber())){
+//			if(!actualCopy.){
+//				return true;
+//			}
+//		}
+//		}
+//		return false;
+//	}
 	private void updateUI() {
 		System.out.println("LoanDetailController updateUI ausgefuehrt");
 		loanDetailView.getLoanTable().updateUI();
+		
 
 	}
 
@@ -144,6 +176,7 @@ public class LoanDetailController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("LoanDetailController updateUI ausgefuehrt");
 		updateUI();
 	}
 

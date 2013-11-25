@@ -58,7 +58,6 @@ public class BookDetail {
 	private JTextField txtFieldTitle;
 	private JTextField txtFieldAuthor;
 	private JComboBox comboBox;
-	private JLabel lblNewLabel;
 	private JButton btnSave;
 	private JButton btnDeleteCopy;
 	private JLabel lblNumberOfCopies;

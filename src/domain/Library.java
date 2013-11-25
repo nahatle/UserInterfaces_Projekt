@@ -81,7 +81,7 @@ public class Library extends Observable {
 	public List<Copy> getCopiesOfBook(Book book) {
 		List<Copy> res = new ArrayList<Copy>();
 		for (Copy c : copies) {
-			if (c.getTitle().equals(book)) {
+			if (c.getBook().equals(book)) {
 				res.add(c);
 			}
 		}
@@ -92,7 +92,7 @@ public class Library extends Observable {
 	public List<Loan> getLentCopiesOfBook(Book book) {
 		List<Loan> lentCopies = new ArrayList<Loan>();
 		for (Loan l : loans) {
-			if (l.getCopy().getTitle().equals(book) && l.isLent()) {
+			if (l.getCopy().getBook().equals(book) && l.isLent()) {
 				lentCopies.add(l);
 			}
 		}

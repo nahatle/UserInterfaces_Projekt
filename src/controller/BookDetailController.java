@@ -27,26 +27,28 @@ public class BookDetailController implements Observer{
 	private Book addNewCopy;
 	private String[] names = {"ID", "Buchzustand"};
 
-	
+	//Neues Buch
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
 		this.lib.addObserver(this);
 		this.bookDetail = bookDetail;
 		this.frame = new JFrame();
+		lib.addObserver(this);
+		this.bookDetail.setNew(true);
 		initialize();
 		updateUI();
 		displayFrame();
-		this.bookDetail.setNew(true);
 		setBtnExemplarKopierenVisibiliy();
 	}
 	
-	
+	//Selektiertes Buch bearbeiten
 	public BookDetailController(Library library, BookDetail bookDetail, Book selectedBook){
 		this.lib = library;
 		this.bookDetail = bookDetail;
 		this.lib.addObserver(this);
 		this.frame = new JFrame();
 		this.selectedBook = selectedBook;
+		lib.addObserver(this);
 		setBookDetailInTextfield();
 		initialize();
 		updateUI();
@@ -58,6 +60,7 @@ public class BookDetailController implements Observer{
 		bookDetail.setTxtFieldTitle(new String(selectedBook.getName()));
 		bookDetail.setTxtFieldAuthor(selectedBook.getAuthor());
 		bookDetail.setTxtFieldPublisher(selectedBook.getPublisher());
+		bookDetail.getComboBox().setSelectedItem(selectedBook.getShelf());
 		
 	}
 	
@@ -242,14 +245,6 @@ public class BookDetailController implements Observer{
 	});
 	}
  
-
-	public void updateUI(){
-		bookDetail.getConditionTable().updateUI();
-		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
-		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
-	
-	}
-	
 	public boolean isTextfieldValid(){
 		if (bookDetail.getTxtFieldTitle().getText().trim().equals("")){
 			return false;
@@ -263,6 +258,14 @@ public class BookDetailController implements Observer{
 		return true;
 	}
 	
+	public void updateUI(){
+		bookDetail.getConditionTable().updateUI();
+		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
+		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
+	
+	}
+	
+	
 	public void displayFrame(){
 		frame.setContentPane(bookDetail.getContentPane());
 		frame.pack();
@@ -272,6 +275,7 @@ public class BookDetailController implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("BookDetailController updateUI ausgefuehrt");
 		updateUI();	
 	}
 	
