@@ -66,6 +66,7 @@ public class LibraryApp {
 		
 		// create pseudo random books and loans
 		createBooksAndLoans(library);
+		Collections.sort(library.getCustomers());
 	
 		System.out.println("Initialisation of the library was successful!\n");
 		System.out.println("Books in library: " + library.getBooks().size());
@@ -132,7 +133,6 @@ public class LibraryApp {
 			Customer c = library.createAndAddCustomer(getTextContentOf(customer,"name"),getTextContentOf(customer,"surname"));
 			c.setAdress(getTextContentOf(customer,"street"), Integer.parseInt(getTextContentOf(customer,"zip")), getTextContentOf(customer,"city"));
 		}
-		Collections.sort(library.getCustomers());
 	}
 
 	private static void createLoansForCopy(Library library, Copy copy, int position,

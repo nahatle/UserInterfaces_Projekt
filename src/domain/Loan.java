@@ -89,7 +89,7 @@ public class Loan extends Observable{
 		return (int) ((pickupDate.getTimeInMillis() /1000 /60 /60 /24)  + 30);
 	}
 	
-	
+
 	public int getDaysOverdue() {
 		if ( !isOverdue() )
 			return 0;

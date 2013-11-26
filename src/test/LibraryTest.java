@@ -67,7 +67,7 @@ public class LibraryTest extends TestCase {
 		Loan lo2 = library.createAndAddLoan(c, library.getCopiesOfBook(t).get(0));
 		assertNull(lo2);
 		
-		List<Loan> lo3 = library.getCustomerLoans(c);
+		List<Loan> lo3 = library.getActiveCustomerLoans(c);
 		assertEquals(1, lo3.size());
 		
 	}

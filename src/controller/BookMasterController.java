@@ -2,6 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,16 +20,19 @@ import javax.swing.table.TableRowSorter;
 
 import view.BookDetail;
 import view.BookMaster;
+import domain.Book;
 import domain.Library;
 
 public class BookMasterController implements Observer {
 
 	private Library lib;
 	private BookMaster bookMaster;
+	private HashMap<Book, BookDetailController> framesDetail;
 	private String[] names = {"Anzahl Kopien", "Titel", "Autor", "Verlag"};
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
+		framesDetail = new HashMap<Book, BookDetailController>();
 		this.lib = library;
 		this.bookMaster = bookMaster;
 		initialize();
@@ -61,9 +68,9 @@ public class BookMasterController implements Observer {
 		});
 			
 		bookMaster.getButton().addActionListener((new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
 			}
 
@@ -75,7 +82,21 @@ public class BookMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(int rowId:bookMaster.getTable().getSelectedRows()){
-					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(rowId)));
+					final Book book = lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(rowId));
+					if(framesDetail.containsKey(book)) {
+						framesDetail.get(book).bringToFront();
+						continue;
+					}
+					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), book);
+					
+					framesDetail.put(book, bookDetailController);
+					
+					bookDetailController.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent e) {
+							framesDetail.remove(book);
+						}
+					});
 				}
 				}
 

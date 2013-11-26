@@ -207,9 +207,6 @@ public class BookDetail {
 			}
 
 		});
-
-
-
 		detailScrollPane = new JScrollPane(conditionTable);
 		InventoryPanel.add(detailScrollPane, BorderLayout.CENTER);
 		detailScrollPane.setViewportView(conditionTable);

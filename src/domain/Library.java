@@ -1,7 +1,10 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 
 public class Library extends Observable {
@@ -109,6 +112,16 @@ public class Library extends Observable {
 		return lentCopies;
 	}
 	
+	public List<Loan> getActiveCustomerLoans(Customer customer) {
+		List<Loan> lentCopies = new ArrayList<Loan>();
+		for (Loan l : loans) {
+			if (l.getCustomer().equals(customer) && l.isLent()) {
+				lentCopies.add(l);
+			}
+		}
+		return lentCopies;
+	}
+	
 	public List<Loan> getOverdueLoans() {
 		List<Loan> overdueLoans = new ArrayList<Loan>();
 		for ( Loan l : getLoans() ) {
@@ -150,6 +163,16 @@ public class Library extends Observable {
 	public List<Loan> getLoans() {
 		return loans;
 	}
+	public List<Loan> getActualLoans(){
+		List<Loan> actualLoans = new ArrayList<>();
+		for(Loan actualLoan : loans){
+			if(actualLoan.isLent()){
+				actualLoans.add(actualLoan);
+			}
+		}
+		return actualLoans;
+	}
+
 
 	public List<Book> getBooks() {
 		return books;

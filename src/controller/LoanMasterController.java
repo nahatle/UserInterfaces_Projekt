@@ -81,7 +81,7 @@ public class LoanMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int rowIndex = loanMaster.getTable().getSelectedRow();
-				new LoanDetailController(lib, new LoanDetailView(), lib.getLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex)));
+				new LoanDetailController(lib, new LoanDetailView(), lib.getActualLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex)));
 			}
 		});
 
@@ -91,15 +91,16 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
-				Loan actualLoan = lib.getLoans().get(rowIndex);
+				Loan actualLoan = lib.getActualLoans().get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-//					GregorianCalendar returnDate = actualLoan.getOverdueDate();
-					if (actualLoan.getDaysOverdue() > 0){
+					if (actualLoan.getDaysOverdue() > 1){
 						int daysOverdue = actualLoan.getDaysOverdue();
 						return ("Faellig - seit " + daysOverdue + " Tagen");
-					} else {
-						return ("OK");
+					} else if(actualLoan.getDaysOfLoanDuration() > 6){
+						return ("Ok");
+					} else{
+						return ("Ok      - noch " + actualLoan.getDaysOfLoanDuration() +" Tage");
 					}
 				case 1:
 					return actualLoan.getCopy().getInventoryNumber();
@@ -116,7 +117,7 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public int getRowCount() {
-				return lib.getBooks().size();
+				return lib.getActualLoans().size();
 			}
 
 			@Override
@@ -169,7 +170,7 @@ public class LoanMasterController implements Observer {
 			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
 				public boolean include(Entry entry){
 					int i =  (int) entry.getIdentifier();
-					return lib.getLoans().get(i).isOverdue();
+					return lib.getActualLoans().get(i).isOverdue();
 				}
 			};
 			sorter.setRowFilter(filter);
@@ -179,7 +180,7 @@ public class LoanMasterController implements Observer {
 	
 	
 	private void updateUI() {
-		loanMaster.setNumAktuellAusgeliehen(lib.getLoans().size());
+		loanMaster.setNumAktuellAusgeliehen(lib.getActualLoans().size());
 		loanMaster.setNumUeberfaelligeAusleihen(lib.getOverdueLoans().size());
 		
 		// Tabelle ins Frame

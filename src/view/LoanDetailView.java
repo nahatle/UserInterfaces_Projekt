@@ -99,11 +99,6 @@ public class LoanDetailView {
 		setLoanPanel.add(label_4, gbc_label_4);
 
 		btnExemplarAusleihen = new JButton("Exemplar ausleihen");
-		btnExemplarAusleihen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnExemplarAusleihen.setMnemonic(KeyEvent.VK_A);
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.gridx = 3;

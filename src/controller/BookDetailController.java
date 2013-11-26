@@ -2,14 +2,18 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
 import view.BookDetail;
 import domain.Book;
@@ -76,7 +80,7 @@ public class BookDetailController implements Observer{
 	//Actionlistener kommen hier rein
 	public void initialize(){
 		setBtnExemplarKopierenVisibiliy();
-	 
+		
 		bookDetail.getTxtFieldTitle().getDocument().addDocumentListener(new DocumentListener() {
 		
 		@Override
@@ -216,7 +220,7 @@ public class BookDetailController implements Observer{
 				case 0:
 					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
 				case 1:
-					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
+					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getCondition();
 //					return lib.get
 				}
 				return 0;
@@ -236,13 +240,33 @@ public class BookDetailController implements Observer{
 			public int getColumnCount() {		
 				return names.length;
 			}
-
+			//haxxorcode vom charri: Cell 1 editable machen
+			@Override
+			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+				if(columnIndex != 1 || !(aValue instanceof Copy.Condition)){
+					super.setValueAt(aValue, rowIndex, columnIndex);
+					return;
+				}
+				Copy.Condition newValue = (Copy.Condition) aValue;
+				Copy copy = lib.getCopiesOfBook(selectedBook).get(rowIndex);
+				copy.setCondition(newValue);
+			}
+			
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return getValueAt(0, columnIndex).getClass();
 			}
-		
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return columnIndex == 1;
+			}
 	});
+	 	//Charri:  neue Combobox in zelle 1 einfuegen mit den Conditions
+	 	TableColumnModel tableColumn = bookDetail.getConditionTable().getColumnModel(); 
+		tableColumn.getColumn(1).setCellEditor(
+				new DefaultCellEditor(new JComboBox<Copy.Condition>(Copy.Condition.values()))
+				);
 	}
  
 	public boolean isTextfieldValid(){
@@ -278,7 +302,15 @@ public class BookDetailController implements Observer{
 		System.out.println("BookDetailController updateUI ausgefuehrt");
 		updateUI();	
 	}
+
+	public void bringToFront() {
+		// TODO Auto-generated method stub
+		frame.toFront();
+	}
 	
+	public void addWindowListener(WindowListener l) {
+		frame.addWindowListener(l);
+	}
 	
 	
 }
