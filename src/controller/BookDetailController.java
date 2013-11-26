@@ -195,7 +195,7 @@ public class BookDetailController implements Observer{
 	
 	 //Knopf: Exemplar entfernen
 	 bookDetail.getBtnDeleteCopy().addActionListener(new ActionListener() {
-		//loeschen funktioniert --> "live update" im table noch implementieren!!
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			List<Copy> copies = lib.getCopiesOfBook(selectedBook);
@@ -304,7 +304,6 @@ public class BookDetailController implements Observer{
 	}
 
 	public void bringToFront() {
-		// TODO Auto-generated method stub
 		frame.toFront();
 	}
 	

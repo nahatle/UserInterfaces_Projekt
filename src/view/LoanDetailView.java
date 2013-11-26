@@ -26,6 +26,7 @@ public class LoanDetailView {
 	private JPanel contentPane;
 	private JButton btnExemplarAusleihen;
 	private JLabel lblFktAnzAusleihen;
+	private JButton btnExemplarRueckgabe;
 
 	public LoanDetailView() {
 		initialize();
@@ -133,14 +134,14 @@ public class LoanDetailView {
 		gbc_lblFktAnzAusleihen.gridy = 0;
 		panel_3.add(lblFktAnzAusleihen, gbc_lblFktAnzAusleihen);
 
-		JButton button_1 = new JButton("Exemplar zurueckgeben");
-		button_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		button_1.setMnemonic(KeyEvent.VK_Z);
+		btnExemplarRueckgabe = new JButton("Exemplar zurueckgeben");
+		btnExemplarRueckgabe.setHorizontalAlignment(SwingConstants.RIGHT);
+		btnExemplarRueckgabe.setMnemonic(KeyEvent.VK_Z);
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.insets = new Insets(0, 0, 5, 0);
 		gbc_button_1.gridx = 5;
 		gbc_button_1.gridy = 0;
-		panel_3.add(button_1, gbc_button_1);
+		panel_3.add(btnExemplarRueckgabe, gbc_button_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		getLoanPanel.add(scrollPane, BorderLayout.CENTER);
@@ -148,6 +149,11 @@ public class LoanDetailView {
 		loanTable = new JTable();
 		scrollPane.setViewportView(loanTable);
 
+	}
+
+	
+	public JButton getBtnExemplarRueckgabe() {
+		return btnExemplarRueckgabe;
 	}
 
 	public void setLblFktAnzAusleihen(Integer number) {

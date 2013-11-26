@@ -113,6 +113,7 @@ public class Library extends Observable {
 	}
 	
 	public List<Loan> getActiveCustomerLoans(Customer customer) {
+		
 		List<Loan> lentCopies = new ArrayList<Loan>();
 		for (Loan l : loans) {
 			if (l.getCustomer().equals(customer) && l.isLent()) {
@@ -120,6 +121,7 @@ public class Library extends Observable {
 			}
 		}
 		return lentCopies;
+		
 	}
 	
 	public List<Loan> getOverdueLoans() {

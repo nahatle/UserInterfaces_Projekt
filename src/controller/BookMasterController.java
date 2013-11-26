@@ -87,8 +87,7 @@ public class BookMasterController implements Observer {
 						framesDetail.get(book).bringToFront();
 						continue;
 					}
-					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), book);
-					
+					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), book);				
 					framesDetail.put(book, bookDetailController);
 					
 					bookDetailController.addWindowListener(new WindowAdapter() {

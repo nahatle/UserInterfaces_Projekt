@@ -3,8 +3,11 @@ package controller;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,6 +26,7 @@ import javax.swing.table.TableRowSorter;
 import application.LibraryApp;
 import view.LoanDetailView;
 import view.LoanMaster;
+import domain.Book;
 import domain.Customer;
 import domain.Library;
 import domain.Loan;
@@ -32,23 +36,25 @@ public class LoanMasterController implements Observer {
 	private final Library lib;
 	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" };
 	private final LoanMaster loanMaster;
+	private HashMap<Loan, LoanDetailController> framesDetail;
 
 	public LoanMasterController(Library library, LoanMaster loanMaster) {
+		framesDetail = new HashMap<Loan, LoanDetailController>();
 		this.lib = library;
 		this.loanMaster = loanMaster;
 		lib.addObserver(this);
 		initialize();
 		updateUI();
-		
+
 
 	}
 
 	private void initialize() {
 
 		loanMaster.getBtnSelektierteAusleiheAnzeigen().setEnabled(false);
-		
+
 		loanMaster.getCheckboxNurUeberfaellige().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setTableItems();
@@ -81,7 +87,20 @@ public class LoanMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int rowIndex = loanMaster.getTable().getSelectedRow();
-				new LoanDetailController(lib, new LoanDetailView(), lib.getActualLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex)));
+				final Loan loan = lib.getActualLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex));
+				if(framesDetail.containsKey(loan)){
+					framesDetail.get(loan).bringToFront();
+				} else {
+					LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView(), loan);
+					framesDetail.put(loan, loanDetailController);
+
+					loanDetailController.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent e) {
+							framesDetail.remove(loan);
+						}
+					});
+				}
 			}
 		});
 
@@ -97,10 +116,8 @@ public class LoanMasterController implements Observer {
 					if (actualLoan.getDaysOverdue() > 1){
 						int daysOverdue = actualLoan.getDaysOverdue();
 						return ("Faellig - seit " + daysOverdue + " Tagen");
-					} else if(actualLoan.getDaysOfLoanDuration() > 6){
+					} else {
 						return ("Ok");
-					} else{
-						return ("Ok      - noch " + actualLoan.getDaysOfLoanDuration() +" Tage");
 					}
 				case 1:
 					return actualLoan.getCopy().getInventoryNumber();
@@ -175,22 +192,22 @@ public class LoanMasterController implements Observer {
 			};
 			sorter.setRowFilter(filter);
 		} 
-		
+
 	}
-	
-	
+
+
 	private void updateUI() {
 		loanMaster.setNumAktuellAusgeliehen(lib.getActualLoans().size());
 		loanMaster.setNumUeberfaelligeAusleihen(lib.getOverdueLoans().size());
-		
+
 		// Tabelle ins Frame
 		loanMaster.getTable().updateUI();
 		setTableItems();
 
 	}
 
-	
-	
+
+
 	@Override
 	public void update(Observable o, Object arg) {
 		updateUI();

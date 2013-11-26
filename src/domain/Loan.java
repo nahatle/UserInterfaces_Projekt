@@ -52,6 +52,10 @@ public class Loan extends Observable{
 	public GregorianCalendar getPickupDate() {
 		return pickupDate;
 	}
+	
+	public void setReturnDate(GregorianCalendar returnDate){
+		this.returnDate = returnDate;
+	}
 
 	public GregorianCalendar getReturnDate() {
 		return returnDate;
