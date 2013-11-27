@@ -1,9 +1,9 @@
-//LoanDetailView Ñ> Wenn neue Ausleihe direkt Datum anzeigen lassen wenn man das Buch zurŸckgeben muss
+//LoanDetailView ï¿½> Wenn neue Ausleihe direkt Datum anzeigen lassen wenn man das Buch zurï¿½ckgeben muss
 //
-//- Maximal 3 BŸcher gleichzeitig ausleihen
-//- Nur ausleihe von Kunde A mšglich wenn keine Kunde A keine ŸberfŠlligen  Ausleihen hat
-//- BuchrŸckgabe
-//- MahngebŸhr bei ŸberfŠlligen ausleihen
+//- Maximal 3 Bï¿½cher gleichzeitig ausleihen
+//- Nur ausleihe von Kunde A mï¿½glich wenn keine Kunde A keine ï¿½berfï¿½lligen  Ausleihen hat
+//- Buchrï¿½ckgabe
+//- Mahngebï¿½hr bei ï¿½berfï¿½lligen ausleihen
 
 package application;
 
@@ -82,8 +82,7 @@ public class LibraryApp {
 		System.out.println("Percent copies on loan: " + lentBooksPercentage + "%");
 		System.out.println("Copies currently overdue: " + library.getOverdueLoans().size());
 
-		for (Loan l : library.getOverdueLoans())
-			System.out.println(l.getDaysOverdue());
+		
 	}
 
 	private static void createBooksAndLoans(Library library) throws IllegalLoanOperationException {

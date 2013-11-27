@@ -14,7 +14,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
@@ -23,6 +25,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -37,9 +42,11 @@ import domain.Loan;
 public class LoanMasterController implements Observer {
 
 	private final Library lib;
-	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" , "Icon"};
+	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" };
 	private final LoanMaster loanMaster;
 	private HashMap<Loan, LoanDetailController> framesDetail;
+	public final int COLUMN_ID_MAXWIDTH = 90;
+	public final int TABLE_ROWHEIGHT = 25;
 
 	public LoanMasterController(Library library, LoanMaster loanMaster) {
 		framesDetail = new HashMap<Loan, LoanDetailController>();
@@ -130,19 +137,6 @@ public class LoanMasterController implements Observer {
 					return actualLoan.getOverdueDate().getTime();
 				case 4:
 					return actualLoan.getCustomer().getName() + ", " + actualLoan.getCustomer().getSurname();
-				case 5:
-					JRadioButton button = new JRadioButton();
-					 ButtonGroup group = new ButtonGroup();
-					 group.add(button);
-					if (actualLoan.isOverdue()){
-						button.setSelected(true);
-						button.setBackground(Color.RED);
-						return group;
-					}else{
-						button.setSelected(true);
-						button.setBackground(Color.GREEN);
-						return button;
-					}
 				}
 
 				return 0;
@@ -169,7 +163,16 @@ public class LoanMasterController implements Observer {
 			}
 
 		});
-		loanMaster.getTable().
+
+		loanMaster.getTable().setDefaultRenderer(Date.class, new TableRowRenderer());
+		loanMaster.getTable().setDefaultRenderer(Long.class, new TableRowRenderer());
+		loanMaster.getTable().setDefaultRenderer(Object.class, new TableRowRenderer());
+		loanMaster.getTable().setShowVerticalLines(true);
+		loanMaster.getTable().setShowHorizontalLines(false);
+		loanMaster.getTable().setRowHeight(TABLE_ROWHEIGHT);
+		loanMaster.getTable().getColumnModel().getColumn(1).setMaxWidth(COLUMN_ID_MAXWIDTH);
+		loanMaster.getTable().setGridColor(Color.lightGray);
+	
 		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loanMaster.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 
