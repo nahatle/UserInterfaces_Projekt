@@ -52,6 +52,10 @@ public class Loan extends Observable{
 	public GregorianCalendar getPickupDate() {
 		return pickupDate;
 	}
+	
+	public void setReturnDate(GregorianCalendar returnDate){
+		this.returnDate = returnDate;
+	}
 
 	public GregorianCalendar getReturnDate() {
 		return returnDate;
@@ -67,7 +71,7 @@ public class Loan extends Observable{
 
 	@Override
 	public String toString() {
-		return "Loan of: " + copy.getTitle().getName() + "\tFrom: "
+		return "Loan of: " + copy.getBook().getName() + "\tFrom: "
 				+ customer.getName() + " " + customer.getSurname()
 				+ "\tPick up: " + getFormattedDate(pickupDate) + "\tReturn: "
 				+ getFormattedDate(returnDate) + "\tDays: "
@@ -89,7 +93,7 @@ public class Loan extends Observable{
 		return (int) ((pickupDate.getTimeInMillis() /1000 /60 /60 /24)  + 30);
 	}
 	
-	
+
 	public int getDaysOverdue() {
 		if ( !isOverdue() )
 			return 0;

@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,16 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class BookMaster {
-	/**
-	 * Create the application.
-	 * 
-	 * @param library
-	 */
-	public BookMaster() {
-		initialize();
-	}
 
-	private int number;
 	private JTextField textField;
 	private JTable table;
 	private JLabel numOfCopiesLabel;
@@ -35,10 +27,15 @@ public class BookMaster {
 	private JButton btnNeu;
 	private JButton btnBearbeiten;
 	private JLabel lblAnzSelektiert;
+	private JCheckBox checkBoxNurVerfuegbare;
+	
+	
+	
+	public BookMaster() {
+		initialize();
+	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 
 		contentPane = new JPanel();
@@ -106,8 +103,8 @@ public class BookMaster {
 		bookSearchPanel.add(textField);
 		textField.setColumns(10);
 
-		JCheckBox checkBox = new JCheckBox("Nur Verfuegbare");
-		bookSearchPanel.add(checkBox);
+		checkBoxNurVerfuegbare = new JCheckBox("Nur Verfuegbare");
+		bookSearchPanel.add(checkBoxNurVerfuegbare);
 
 		btnNeu = new JButton("Neues Buch hinzufuegen");
 		bookSearchPanel.add(btnNeu);
@@ -161,4 +158,10 @@ public class BookMaster {
 		lblAnzSelektiert.setText("Ausgewaehlt: " + number);
 	}
 
+
+	public JCheckBox getCheckBoxNurVerfuegbare() {
+		return checkBoxNurVerfuegbare;
+	}
+
+	
 }

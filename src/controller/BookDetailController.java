@@ -2,14 +2,18 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumnModel;
 
 import view.BookDetail;
 import domain.Book;
@@ -22,31 +26,33 @@ public class BookDetailController implements Observer{
 
 	private Library lib;
 	private BookDetail bookDetail;
-	private JFrame frame;
+	private EscapableFrame frame;
 	private Book selectedBook;
 	private Book addNewCopy;
 	private String[] names = {"ID", "Buchzustand"};
 
-	
+	//Neues Buch
 	public BookDetailController(Library library, BookDetail bookDetail){
 		this.lib = library;
 		this.lib.addObserver(this);
 		this.bookDetail = bookDetail;
-		this.frame = new JFrame();
+		frame = new EscapableFrame();
+		lib.addObserver(this);
+		this.bookDetail.setNew(true);
 		initialize();
 		updateUI();
 		displayFrame();
-		this.bookDetail.setNew(true);
 		setBtnExemplarKopierenVisibiliy();
 	}
 	
-	
+	//Selektiertes Buch bearbeiten
 	public BookDetailController(Library library, BookDetail bookDetail, Book selectedBook){
 		this.lib = library;
 		this.bookDetail = bookDetail;
 		this.lib.addObserver(this);
-		this.frame = new JFrame();
+		frame = new EscapableFrame();
 		this.selectedBook = selectedBook;
+		lib.addObserver(this);
 		setBookDetailInTextfield();
 		initialize();
 		updateUI();
@@ -58,6 +64,7 @@ public class BookDetailController implements Observer{
 		bookDetail.setTxtFieldTitle(new String(selectedBook.getName()));
 		bookDetail.setTxtFieldAuthor(selectedBook.getAuthor());
 		bookDetail.setTxtFieldPublisher(selectedBook.getPublisher());
+		bookDetail.getComboBox().setSelectedItem(selectedBook.getShelf());
 		
 	}
 	
@@ -73,7 +80,7 @@ public class BookDetailController implements Observer{
 	//Actionlistener kommen hier rein
 	public void initialize(){
 		setBtnExemplarKopierenVisibiliy();
-	 
+		
 		bookDetail.getTxtFieldTitle().getDocument().addDocumentListener(new DocumentListener() {
 		
 		@Override
@@ -188,7 +195,7 @@ public class BookDetailController implements Observer{
 	
 	 //Knopf: Exemplar entfernen
 	 bookDetail.getBtnDeleteCopy().addActionListener(new ActionListener() {
-		//loeschen funktioniert --> "live update" im table noch implementieren!!
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			List<Copy> copies = lib.getCopiesOfBook(selectedBook);
@@ -213,7 +220,7 @@ public class BookDetailController implements Observer{
 				case 0:
 					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
 				case 1:
-					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
+					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getCondition();
 //					return lib.get
 				}
 				return 0;
@@ -233,23 +240,35 @@ public class BookDetailController implements Observer{
 			public int getColumnCount() {		
 				return names.length;
 			}
-
+			//haxxorcode vom charri: Cell 1 editable machen
+			@Override
+			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+				if(columnIndex != 1 || !(aValue instanceof Copy.Condition)){
+					super.setValueAt(aValue, rowIndex, columnIndex);
+					return;
+				}
+				Copy.Condition newValue = (Copy.Condition) aValue;
+				Copy copy = lib.getCopiesOfBook(selectedBook).get(rowIndex);
+				copy.setCondition(newValue);
+			}
+			
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return getValueAt(0, columnIndex).getClass();
 			}
-		
+			
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return columnIndex == 1;
+			}
 	});
+	 	//Charri:  neue Combobox in zelle 1 einfuegen mit den Conditions
+	 	TableColumnModel tableColumn = bookDetail.getConditionTable().getColumnModel(); 
+		tableColumn.getColumn(1).setCellEditor(
+				new DefaultCellEditor(new JComboBox<Copy.Condition>(Copy.Condition.values()))
+				);
 	}
  
-
-	public void updateUI(){
-		bookDetail.getConditionTable().updateUI();
-		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
-		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
-	
-	}
-	
 	public boolean isTextfieldValid(){
 		if (bookDetail.getTxtFieldTitle().getText().trim().equals("")){
 			return false;
@@ -263,6 +282,14 @@ public class BookDetailController implements Observer{
 		return true;
 	}
 	
+	public void updateUI(){
+		bookDetail.getConditionTable().updateUI();
+		bookDetail.getBtnSave().setEnabled(isTextfieldValid());
+		((AbstractTableModel) bookDetail.getConditionTable().getModel()).fireTableDataChanged();
+	
+	}
+	
+	
 	public void displayFrame(){
 		frame.setContentPane(bookDetail.getContentPane());
 		frame.pack();
@@ -272,9 +299,17 @@ public class BookDetailController implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("BookDetailController updateUI ausgefuehrt");
 		updateUI();	
 	}
+
+	public void bringToFront() {
+		frame.toFront();
+	}
 	
+	public void addWindowListener(WindowListener l) {
+		frame.addWindowListener(l);
+	}
 	
 	
 }

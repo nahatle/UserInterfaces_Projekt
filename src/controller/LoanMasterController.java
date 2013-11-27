@@ -3,12 +3,18 @@ package controller;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.RowFilter.Entry;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -17,8 +23,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import application.LibraryApp;
 import view.LoanDetailView;
 import view.LoanMaster;
+import domain.Book;
+import domain.Customer;
 import domain.Library;
 import domain.Loan;
 
@@ -27,15 +36,16 @@ public class LoanMasterController implements Observer {
 	private final Library lib;
 	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" };
 	private final LoanMaster loanMaster;
-	private GregorianCalendar returnDate;
-	private LoanDetailView loanDetailView;
+	private HashMap<Loan, LoanDetailController> framesDetail;
 
 	public LoanMasterController(Library library, LoanMaster loanMaster) {
+		framesDetail = new HashMap<Loan, LoanDetailController>();
 		this.lib = library;
 		this.loanMaster = loanMaster;
+		lib.addObserver(this);
 		initialize();
 		updateUI();
-		lib.addObserver(this);
+
 
 	}
 
@@ -43,11 +53,19 @@ public class LoanMasterController implements Observer {
 
 		loanMaster.getBtnSelektierteAusleiheAnzeigen().setEnabled(false);
 
+		loanMaster.getCheckboxNurUeberfaellige().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTableItems();
+			}
+		});
+
 		loanMaster.getBtnAusleiheErfassen().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView());
+				new LoanDetailController(lib, new LoanDetailView());
 			}
 		});
 
@@ -69,7 +87,20 @@ public class LoanMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int rowIndex = loanMaster.getTable().getSelectedRow();
-				LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView(), lib.getLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex)));
+				final Loan loan = lib.getActualLoans().get(loanMaster.getTable().convertRowIndexToModel(rowIndex));
+				if(framesDetail.containsKey(loan)){
+					framesDetail.get(loan).bringToFront();
+				} else {
+					LoanDetailController loanDetailController = new LoanDetailController(lib, new LoanDetailView(), loan);
+					framesDetail.put(loan, loanDetailController);
+
+					loanDetailController.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent e) {
+							framesDetail.remove(loan);
+						}
+					});
+				}
 			}
 		});
 
@@ -79,24 +110,23 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
-				Loan loan = lib.getLoans().get(rowIndex);
+				Loan actualLoan = lib.getActualLoans().get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-					GregorianCalendar returnDate = loan.getOverdueDate();
-					if (loan.isOverdue()) {
-						int daysOverdue = loan.getDaysOverdue();
+					if (actualLoan.isOverdue()){
+						int daysOverdue = actualLoan.getDaysOverdue();
 						return ("Faellig - seit " + daysOverdue + " Tagen");
-					} else {
+					}else {
 						return ("OK");
 					}
 				case 1:
-					return loan.getCopy().getInventoryNumber();
+					return actualLoan.getCopy().getInventoryNumber();
 				case 2:
-					return loan.getCopy().getTitle();
+					return actualLoan.getCopy().getBook().getName();
 				case 3:
-					return loan.getOverdueDate().getTime();
+					return actualLoan.getOverdueDate().getTime();
 				case 4:
-					return loan.getCustomer().getName() + ", " + loan.getCustomer().getSurname();
+					return actualLoan.getCustomer().getName() + ", " + actualLoan.getCustomer().getSurname();
 				}
 
 				return 0;
@@ -104,12 +134,11 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public int getRowCount() {
-				return lib.getBooks().size();
+				return lib.getActualLoans().size();
 			}
 
 			@Override
 			public String getColumnName(int columnIndex) {
-				// return null;
 				return names[columnIndex];
 			}
 
@@ -144,29 +173,40 @@ public class LoanMasterController implements Observer {
 			}
 		});
 
-		loanMaster.setNumAktuellAusgeliehen(lib.getLoans().size());
-		loanMaster.setNumUeberfaelligeAusleihen(lib.getOverdueLoans().size());
+
 	}
 
-	private void updateUI() {
-		// Dynamisch Buecher zaehlen
-		// loanMaster.getNumberOfBooksLabel().setText(new
-		// Integer(lib.getBooks().size()).toString());
-		// loanMaster.getNumberOfCopiesLabel().setText(new
-		// Integer(lib.getCopies().size()).toString());
-
-		// Tabelle ins Frame
-		loanMaster.getTable().updateUI();
-
-		// Sortieren der Tabelle
+	public void setTableItems(){
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
 		loanMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(loanMaster.getTable().getModel());
-
-		// Filtern der Tabelle, Suchfunktion
 		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + loanMaster.getSearchTextField().getText()));
 
+		//Wenn checkbox selektiert wird
+		if (loanMaster.getCheckboxNurUeberfaellige().isSelected()){
+			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
+				public boolean include(Entry entry){
+					int i =  (int) entry.getIdentifier();
+					return lib.getActualLoans().get(i).isOverdue();
+				}
+			};
+			sorter.setRowFilter(filter);
+		} 
+
 	}
+
+
+	private void updateUI() {
+		loanMaster.setNumAktuellAusgeliehen(lib.getActualLoans().size());
+		loanMaster.setNumUeberfaelligeAusleihen(lib.getOverdueLoans().size());
+
+		// Tabelle ins Frame
+		loanMaster.getTable().updateUI();
+		setTableItems();
+
+	}
+
+
 
 	@Override
 	public void update(Observable o, Object arg) {

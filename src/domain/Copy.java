@@ -18,7 +18,7 @@ public class Copy extends Observable {
 		condition = Condition.NEW;
 	}
 
-	public Book getTitle() {
+	public Book getBook() {
 		return book;
 	}
 

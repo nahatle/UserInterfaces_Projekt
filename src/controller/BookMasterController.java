@@ -2,6 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,16 +20,19 @@ import javax.swing.table.TableRowSorter;
 
 import view.BookDetail;
 import view.BookMaster;
+import domain.Book;
 import domain.Library;
 
 public class BookMasterController implements Observer {
 
 	private Library lib;
 	private BookMaster bookMaster;
+	private HashMap<Book, BookDetailController> framesDetail;
 	private String[] names = {"Anzahl Kopien", "Titel", "Autor", "Verlag"};
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
+		framesDetail = new HashMap<Book, BookDetailController>();
 		this.lib = library;
 		this.bookMaster = bookMaster;
 		initialize();
@@ -37,7 +44,13 @@ public class BookMasterController implements Observer {
 	private void initialize(){
 		
 		bookMaster.getBtnBearbeiten().setEnabled(false);
-		
+		bookMaster.getCheckBoxNurVerfuegbare().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTableItems();
+			}
+		});
 		
 		
 		bookMaster.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -55,9 +68,9 @@ public class BookMasterController implements Observer {
 		});
 			
 		bookMaster.getButton().addActionListener((new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
 			}
 
@@ -69,19 +82,33 @@ public class BookMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(int rowId:bookMaster.getTable().getSelectedRows()){
-					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(rowId)));
+					final Book book = lib.getBooks().get(bookMaster.getTable().convertRowIndexToModel(rowId));
+					if(framesDetail.containsKey(book)) {
+						framesDetail.get(book).bringToFront();
+						continue;
+					}
+					BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail(), book);				
+					framesDetail.put(book, bookDetailController);
+					
+					bookDetailController.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent e) {
+							framesDetail.remove(book);
+						}
+					});
 				}
 				}
 
 		})
 				);
 
+		
+		
 		bookMaster.getTable().setModel(new AbstractTableModel() {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				switch(columnIndex) {
-				//case 0 noch umschreiben nach verfuegbarkeit
 				case 0:
 					return lib.getCopiesOfBook(lib.getBooks().get(rowIndex)).size();
 				case 1:
@@ -137,6 +164,7 @@ public class BookMasterController implements Observer {
 		});
 	}
 
+
 	private void updateUI(){
 		//Dynamisch Buecher zaehlen
 		bookMaster.getNumberOfBooksLabel().setText(new Integer(lib.getBooks().size()).toString());
@@ -146,20 +174,33 @@ public class BookMasterController implements Observer {
 		//Tabelle ins Frame 
 		bookMaster.getTable().updateUI();
 		
-		//Sortieren der Tabelle
-		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
-		bookMaster.getTable().setRowSorter(sorter);
-		sorter.setModel(bookMaster.getTable().getModel());
-		//Filtern der Tabelle, Suchfunktion
-		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
-		
-		
+		setTableItems();
 
 	}
-
-
+	
+	public void setTableItems(){
+		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		bookMaster.getTable().setRowSorter(sorter);	
+		sorter.setModel(bookMaster.getTable().getModel());
+		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
+		
+		//Wenn checkbox selektiert wird
+		if (bookMaster.getCheckBoxNurVerfuegbare().isSelected()){
+			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
+				public boolean include(Entry entry){
+					int i =  (int) entry.getIdentifier();
+					return !(lib.getLoans().get(i).isLent());
+				}
+			};
+			sorter.setRowFilter(filter);
+		} 
+		
+	}
+	
+	
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("BookmasterContoller UpdateUI ausgefuehrt");
 		updateUI();
 	}
 

@@ -17,15 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class LoanMaster {
-	/**
-	 * Create the application.
-	 * 
-	 * @param library
-	 */
-	public LoanMaster() {
-		initialize();
-	}
-
+	
 	private JTextField searchTextField;
 	private JTable table;
 	private JLabel numAktuellAusgeliehen;
@@ -33,10 +25,13 @@ public class LoanMaster {
 	private JButton btnNeueAusleiheErfassen;
 	private JButton btnSelektierteAusleiheAnzeigen;
 	private JLabel numUeberfaelligeAusleihen;
+	private JCheckBox checkboxNurUeberfaellige;
+	
+	public LoanMaster() {
+		initialize();
+	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 
 		contentPane = new JPanel();
@@ -100,8 +95,8 @@ public class LoanMaster {
 		bookSearchPanel.add(searchTextField);
 		searchTextField.setColumns(10);
 
-		JCheckBox chckbxNurberfllige = new JCheckBox("Nur \u00DCberf\u00E4llige");
-		bookSearchPanel.add(chckbxNurberfllige);
+		checkboxNurUeberfaellige = new JCheckBox("Nur \u00DCberf\u00E4llige");
+		bookSearchPanel.add(checkboxNurUeberfaellige);
 
 		btnNeueAusleiheErfassen = new JButton("Neue Ausleihe Erfassen");
 		bookSearchPanel.add(btnNeueAusleiheErfassen);
@@ -141,8 +136,13 @@ public class LoanMaster {
 		return table;
 	}
 
-	public void setNumUeberfaelligeAusleihen(Integer numUeberfaelligeAusleihen) {
-		this.numUeberfaelligeAusleihen.setText(numUeberfaelligeAusleihen.toString());
+	public JCheckBox getCheckboxNurUeberfaellige() {
+		return checkboxNurUeberfaellige;
 	}
+
+	public void setNumUeberfaelligeAusleihen(Integer number) {
+		numUeberfaelligeAusleihen.setText(number.toString());
+	}
+	
 
 }

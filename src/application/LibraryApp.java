@@ -70,7 +70,12 @@ public class LibraryApp {
 
 		// create pseudo random books and loans
 		createBooksAndLoans(library);
+<<<<<<< HEAD
 
+=======
+		Collections.sort(library.getCustomers());
+	
+>>>>>>> f27b764d69cffa8e95eca30cf0aabd2c778b0fad
 		System.out.println("Initialisation of the library was successful!\n");
 		System.out.println("Books in library: " + library.getBooks().size());
 		System.out.println("Customers: " + library.getCustomers().size() + "\n");
@@ -80,8 +85,11 @@ public class LibraryApp {
 		System.out.println("Percent copies on loan: " + lentBooksPercentage + "%");
 		System.out.println("Copies currently overdue: " + library.getOverdueLoans().size());
 
+<<<<<<< HEAD
 		for (Loan l : library.getOverdueLoans())
 			System.out.println(l.getDaysOverdue());
+=======
+>>>>>>> f27b764d69cffa8e95eca30cf0aabd2c778b0fad
 	}
 
 	private static void createBooksAndLoans(Library library) throws IllegalLoanOperationException {
@@ -135,7 +143,6 @@ public class LibraryApp {
 			Customer c = library.createAndAddCustomer(getTextContentOf(customer, "name"), getTextContentOf(customer, "surname"));
 			c.setAdress(getTextContentOf(customer, "street"), Integer.parseInt(getTextContentOf(customer, "zip")), getTextContentOf(customer, "city"));
 		}
-		Collections.sort(library.getCustomers());
 	}
 
 	private static void createLoansForCopy(Library library, Copy copy, int position, int count) throws IllegalLoanOperationException {
