@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
@@ -34,7 +37,7 @@ import domain.Loan;
 public class LoanMasterController implements Observer {
 
 	private final Library lib;
-	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" };
+	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" , "Icon"};
 	private final LoanMaster loanMaster;
 	private HashMap<Loan, LoanDetailController> framesDetail;
 
@@ -127,6 +130,19 @@ public class LoanMasterController implements Observer {
 					return actualLoan.getOverdueDate().getTime();
 				case 4:
 					return actualLoan.getCustomer().getName() + ", " + actualLoan.getCustomer().getSurname();
+				case 5:
+					JRadioButton button = new JRadioButton();
+					 ButtonGroup group = new ButtonGroup();
+					 group.add(button);
+					if (actualLoan.isOverdue()){
+						button.setSelected(true);
+						button.setBackground(Color.RED);
+						return group;
+					}else{
+						button.setSelected(true);
+						button.setBackground(Color.GREEN);
+						return button;
+					}
 				}
 
 				return 0;
@@ -153,7 +169,7 @@ public class LoanMasterController implements Observer {
 			}
 
 		});
-
+		loanMaster.getTable().
 		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		loanMaster.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 

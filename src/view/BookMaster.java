@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -111,6 +113,7 @@ public class BookMaster {
 
 		btnBearbeiten = new JButton("Bearbeiten...");
 		bookSearchPanel.add(btnBearbeiten);
+		
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		inventoryBooksPanel.add(scrollPane, BorderLayout.CENTER);
