@@ -26,7 +26,7 @@ public class BookDetailController implements Observer{
 
 	private Library lib;
 	private BookDetail bookDetail;
-	private JFrame frame;
+	private EscapableFrame frame;
 	private Book selectedBook;
 	private Book addNewCopy;
 	private String[] names = {"ID", "Buchzustand"};
@@ -36,7 +36,7 @@ public class BookDetailController implements Observer{
 		this.lib = library;
 		this.lib.addObserver(this);
 		this.bookDetail = bookDetail;
-		this.frame = new JFrame();
+		frame = new EscapableFrame();
 		lib.addObserver(this);
 		this.bookDetail.setNew(true);
 		initialize();
@@ -50,7 +50,7 @@ public class BookDetailController implements Observer{
 		this.lib = library;
 		this.bookDetail = bookDetail;
 		this.lib.addObserver(this);
-		this.frame = new JFrame();
+		frame = new EscapableFrame();
 		this.selectedBook = selectedBook;
 		lib.addObserver(this);
 		setBookDetailInTextfield();

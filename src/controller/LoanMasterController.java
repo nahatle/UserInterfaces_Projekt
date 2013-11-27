@@ -113,11 +113,11 @@ public class LoanMasterController implements Observer {
 				Loan actualLoan = lib.getActualLoans().get(rowIndex);
 				switch (columnIndex) {
 				case 0:
-					if (actualLoan.getDaysOverdue() > 1){
+					if (actualLoan.isOverdue()){
 						int daysOverdue = actualLoan.getDaysOverdue();
 						return ("Faellig - seit " + daysOverdue + " Tagen");
-					} else {
-						return ("Ok");
+					}else {
+						return ("OK");
 					}
 				case 1:
 					return actualLoan.getCopy().getInventoryNumber();

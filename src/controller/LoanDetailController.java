@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
@@ -25,14 +27,14 @@ public class LoanDetailController implements Observer {
 
 	private final Library lib;
 	private final LoanDetailView loanDetailView;
-	private final JFrame frame;
+	private final EscapableFrame frame;
 	private final String[] loanColumns = { "Ausleihdatum", "Rueckgabedatum", "Name", "Vorname" };
 	private final String[] names = { "Exemplar-ID", "Titel", "Author" };
 
 	private Loan selectedLoan;
 
 	public LoanDetailController(Library library, LoanDetailView loanDetailView) {
-		frame = new JFrame();
+		frame = new EscapableFrame();
 		this.lib = library;
 		this.loanDetailView = loanDetailView;
 		lib.addObserver(this);
@@ -42,7 +44,7 @@ public class LoanDetailController implements Observer {
 	}
 
 	public LoanDetailController(Library library, LoanDetailView loanDetailView, Loan selectedLoan) {
-		frame = new JFrame();
+		frame = new EscapableFrame();
 		this.lib = library;
 		lib.addObserver(this);
 		this.loanDetailView = loanDetailView;
@@ -143,6 +145,8 @@ public class LoanDetailController implements Observer {
 			}
 
 		});
+		
+		//Rueckgabe einer Ausleihe
 		loanDetailView.getBtnExemplarRueckgabe().addActionListener(new ActionListener() {
 
 			@Override
@@ -158,7 +162,8 @@ public class LoanDetailController implements Observer {
 		loanDetailView.setLblFktAnzAusleihen(Integer.valueOf(lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size()));
 
 	}
-
+	
+	//Benutzer in die Combobox setzen
 	public void setCustomerInCombobox(Loan selectedLoan) {
 		loanDetailView.getComboBox().setSelectedItem(selectedLoan.getCustomer());
 	}
@@ -192,6 +197,7 @@ public class LoanDetailController implements Observer {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
 
 	@Override
