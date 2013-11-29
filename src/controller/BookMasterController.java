@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -9,12 +11,16 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -29,6 +35,8 @@ public class BookMasterController implements Observer {
 	private BookMaster bookMaster;
 	private HashMap<Book, BookDetailController> framesDetail;
 	private String[] names = {"Anzahl Kopien", "Titel", "Autor", "Verlag"};
+	public final int COLUMN_EXEMPLAR_MAXWIDTH = 100;
+	public final int TABLE_ROWHEIGHT = 25;
 
 
 	public BookMasterController(Library library, BookMaster bookMaster){
@@ -119,7 +127,7 @@ public class BookMasterController implements Observer {
 					return lib.getBooks().get(rowIndex).getPublisher();
 				}
 				
-				return 0;
+				return null;
 			}
 
 			@Override
@@ -129,7 +137,6 @@ public class BookMasterController implements Observer {
 
 			@Override
 			public String getColumnName(int columnIndex) {
-//				return null;
 				return names[columnIndex];
 			}
 
@@ -144,6 +151,25 @@ public class BookMasterController implements Observer {
 			}
 
 		});
+//		TableColumn column0 = bookMaster.getTable().getColumnModel().getColumn(0);
+//		column0.setCellRenderer(new TableRowRenderer());
+		//bookMaster.getTable().getColumnModel().getColumn(0).setCellRenderer(new TableRowRenderer());
+		bookMaster.getTable().setDefaultRenderer(Object.class, new TableRowRenderer());
+		bookMaster.getTable().setDefaultRenderer(Integer.class, new TableRowRenderer());
+		bookMaster.getTable().setShowVerticalLines(true);
+		bookMaster.getTable().setShowHorizontalLines(false);
+		bookMaster.getTable().setRowHeight(TABLE_ROWHEIGHT);
+		bookMaster.getTable().setGridColor(Color.lightGray);
+		
+//		bookMaster.getTable().setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                c.setBackground(row % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
+//                return c;
+//            }
+//        });
 		
 		bookMaster.getTextField().getDocument().addDocumentListener(new DocumentListener() {
 			
