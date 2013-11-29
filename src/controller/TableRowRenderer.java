@@ -8,6 +8,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class TableRowRenderer extends DefaultTableCellRenderer{
+
+	private static final long serialVersionUID = 1L;
 	private Color whiteColor = new Color(254, 254, 254);
     private Color alternateColor = new Color(237, 243, 254);
     private Color selectedColor = new Color(61, 128, 223);

@@ -2,21 +2,15 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
-
 import view.LoanDetailView;
 import domain.Copy;
 import domain.Customer;
@@ -28,10 +22,8 @@ public class LoanDetailController implements Observer {
 	private final Library lib;
 	private final LoanDetailView loanDetailView;
 	private final EscapableFrame frame;
-	private final String[] loanColumns = { "Ausleihdatum", "Rueckgabedatum", "Name", "Vorname" };
 	private final String[] names = { "Exemplar-ID", "Titel", "Author" };
 
-	private Loan selectedLoan;
 
 	public LoanDetailController(Library library, LoanDetailView loanDetailView) {
 		frame = new EscapableFrame();
@@ -48,7 +40,6 @@ public class LoanDetailController implements Observer {
 		this.lib = library;
 		lib.addObserver(this);
 		this.loanDetailView = loanDetailView;
-		this.selectedLoan = selectedLoan;
 		lib.addObserver(this);
 		initialize();
 		updateUI();
@@ -56,7 +47,7 @@ public class LoanDetailController implements Observer {
 		displayFrame();
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public void initialize() {
 		loanDetailView.getBtnExemplarAusleihen().setEnabled(false);
 		loanDetailView.getComboBox().setModel(new DefaultComboBoxModel<Customer>(lib.getCustomers().toArray(new Customer[0])));

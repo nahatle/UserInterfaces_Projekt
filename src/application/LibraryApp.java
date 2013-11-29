@@ -47,7 +47,7 @@ public class LibraryApp {
 
 					BookMasterController bookMasterController = new BookMasterController(library, new BookMaster());
 					LoanMasterController loanMasterController = new LoanMasterController(library, new LoanMaster());
-					TabbedController tcontroll = new TabbedController(bookMasterController, loanMasterController);
+					new TabbedController(bookMasterController, loanMasterController);
 					// BookDetailController bookDetailController = new
 					// BookDetailController(library, new BookDetail());
 					// BookDetail detail = new BookDetail(library);

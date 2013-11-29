@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 public class TabbedController {
 	private JTabbedPane tabbedPane;
 	private JFrame frame;
+	@SuppressWarnings("unused")
 	private BookMasterController bookMaster;
 	
 
@@ -22,6 +23,7 @@ public class TabbedController {
 	
 	private void displayFrame(){
 		frame.setContentPane(tabbedPane);
+		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -4,10 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -18,10 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import domain.Customer;
 
 public class LoanDetailView {
 	private JTextField txtFldExemplarId;
-	private JComboBox comboBox;
+	private JComboBox<Customer> comboBox;
 	private JTable loanTable;
 	private JPanel contentPane;
 	private JButton btnExemplarAusleihen;
@@ -54,7 +52,7 @@ public class LoanDetailView {
 		gbc_label.gridy = 0;
 		customerSelectionPanel.add(label, gbc_label);
 
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<Customer>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
@@ -165,7 +163,7 @@ public class LoanDetailView {
 		return txtFldExemplarId;
 	}
 
-	public JComboBox getComboBox() {
+	public JComboBox<Customer> getComboBox() {
 		return comboBox;
 	}
 

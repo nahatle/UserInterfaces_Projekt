@@ -28,7 +28,6 @@ public class BookDetailController implements Observer{
 	private BookDetail bookDetail;
 	private EscapableFrame frame;
 	private Book selectedBook;
-	private Book addNewCopy;
 	private String[] names = {"ID", "Buchzustand"};
 
 	//Neues Buch

@@ -7,35 +7,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.ButtonGroup;
-import javax.swing.Icon;
-import javax.swing.JRadioButton;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
-import javax.swing.RowFilter.Entry;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
-import application.LibraryApp;
 import view.LoanDetailView;
 import view.LoanMaster;
-import domain.Book;
-import domain.Customer;
 import domain.Library;
 import domain.Loan;
 
@@ -45,7 +30,7 @@ public class LoanMasterController implements Observer {
 	private final String[] names = { "Status", "Exemplar ID", "Titel", "Ausgeliehen bis", "an Kunde" };
 	private final LoanMaster loanMaster;
 	private HashMap<Loan, LoanDetailController> framesDetail;
-	public final int COLUMN_ID_MAXWIDTH = 90;
+	public final int COLUMN_ID_MAXWIDTH = 40;
 	public final int TABLE_ROWHEIGHT = 25;
 
 	public LoanMasterController(Library library, LoanMaster loanMaster) {
@@ -170,7 +155,7 @@ public class LoanMasterController implements Observer {
 		loanMaster.getTable().setShowVerticalLines(true);
 		loanMaster.getTable().setShowHorizontalLines(false);
 		loanMaster.getTable().setRowHeight(TABLE_ROWHEIGHT);
-		loanMaster.getTable().getColumnModel().getColumn(1).setMaxWidth(COLUMN_ID_MAXWIDTH);
+		loanMaster.getTable().getColumnModel().getColumn(1).setWidth(COLUMN_ID_MAXWIDTH);
 		loanMaster.getTable().setGridColor(Color.lightGray);
 	
 		loanMaster.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -204,7 +189,7 @@ public class LoanMasterController implements Observer {
 		//Wenn checkbox selektiert wird
 		if (loanMaster.getCheckboxNurUeberfaellige().isSelected()){
 			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
-				public boolean include(Entry entry){
+				public boolean include(@SuppressWarnings("rawtypes") Entry entry){
 					int i =  (int) entry.getIdentifier();
 					return lib.getActualLoans().get(i).isOverdue();
 				}

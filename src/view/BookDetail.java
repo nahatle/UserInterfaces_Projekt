@@ -1,25 +1,15 @@
 package view;
 
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.FlowLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
@@ -29,10 +19,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
-import domain.Library;
 import domain.Shelf;
-
-import javax.swing.SwingConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -57,7 +44,7 @@ public class BookDetail {
 	private JTextField txtFieldPublisher;
 	private JTextField txtFieldTitle;
 	private JTextField txtFieldAuthor;
-	private JComboBox comboBox;
+	private JComboBox<Shelf> comboBox;
 	private JButton btnSave;
 	private JButton btnDeleteCopy;
 	private JLabel lblNumberOfCopies;
@@ -73,6 +60,7 @@ public class BookDetail {
 
 
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 
 		contentPane = new JPanel();
@@ -261,13 +249,10 @@ public class BookDetail {
 		return txtFieldAuthor;
 	}
 
-	public JComboBox getComboBox() {
+	public JComboBox<Shelf> getComboBox() {
 		return comboBox;
 	}
 
-	public void setComboBox(JComboBox comboBox) {
-		this.comboBox = comboBox;
-	}
 	public boolean isNew() {
 		return isNew;
 	}

@@ -1,29 +1,21 @@
 package controller;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import view.BookDetail;
 import view.BookMaster;
 import domain.Book;
@@ -79,7 +71,7 @@ public class BookMasterController implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				BookDetailController bookDetailController = new BookDetailController(lib, new BookDetail());
+				new BookDetailController(lib, new BookDetail());
 			}
 
 		})
@@ -113,6 +105,8 @@ public class BookMasterController implements Observer {
 		
 		
 		bookMaster.getTable().setModel(new AbstractTableModel() {
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -213,7 +207,7 @@ public class BookMasterController implements Observer {
 		//Wenn checkbox selektiert wird
 		if (bookMaster.getCheckBoxNurVerfuegbare().isSelected()){
 			RowFilter<Object,Object> filter = new RowFilter<Object, Object>(){
-				public boolean include(Entry entry){
+				public boolean include(@SuppressWarnings("rawtypes") Entry entry){
 					int i =  (int) entry.getIdentifier();
 					return !(lib.getLoans().get(i).isLent());
 				}
