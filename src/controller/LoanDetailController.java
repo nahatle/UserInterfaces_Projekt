@@ -2,12 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -59,9 +55,9 @@ public class LoanDetailController implements Observer {
 	@SuppressWarnings("unchecked")
 	public void initialize() {
 		loanDetailView.getBtnExemplarAusleihen().setEnabled(false);
-		loanDetailView.getComboBox().setModel(new DefaultComboBoxModel<Customer>(lib.getCustomers().toArray(new Customer[0])));
+		loanDetailView.getComboBox().setModel(new DefaultComboBoxModel(lib.getCustomers().toArray(new Customer[0])));
 
-		loanDetailView.getComboBox().addActionListener(new ActionListener() {	
+		loanDetailView.getComboBox().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateUI();
@@ -73,14 +69,14 @@ public class LoanDetailController implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(isTextfieldValid()){
+				if (isTextfieldValid()) {
 					currentId = Integer.valueOf(loanDetailView.getTxtFldExemplarId().getText());
 					for (Copy currentCopy : lib.getCopies()) {
 						if (currentCopy.getInventoryNumber() == currentId) {
 							lib.createAndAddLoan((Customer) loanDetailView.getComboBox().getSelectedItem(), currentCopy);
 							loanDetailView.getBtnExemplarAusleihen().setEnabled(isTextfieldValid());
 						}
-					}	
+					}
 				}
 			}
 		});
@@ -102,7 +98,6 @@ public class LoanDetailController implements Observer {
 				loanDetailView.getBtnExemplarAusleihen().setEnabled(isTextfieldValid());
 			}
 		});
-
 
 		loanDetailView.getLoanTable().setModel(new AbstractTableModel() {
 
@@ -137,16 +132,14 @@ public class LoanDetailController implements Observer {
 				return names.length;
 			}
 
-
-
 			@Override
 			public Class<?> getColumnClass(int columnIndex) {
 				return getValueAt(0, columnIndex).getClass();
 			}
 
 		});
-		
-		//Rueckgabe einer Ausleihe
+
+		// Rueckgabe einer Ausleihe
 		loanDetailView.getBtnExemplarRueckgabe().addActionListener(new ActionListener() {
 
 			@Override
@@ -162,33 +155,29 @@ public class LoanDetailController implements Observer {
 		loanDetailView.setLblFktAnzAusleihen(Integer.valueOf(lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size()));
 
 	}
-	
-	//Benutzer in die Combobox setzen
+
+	// Benutzer in die Combobox setzen
 	public void setCustomerInCombobox(Loan selectedLoan) {
 		loanDetailView.getComboBox().setSelectedItem(selectedLoan.getCustomer());
 	}
 
 	// VALIDIERUNG EXEMPLAR BUTTON
-	private boolean isTextfieldValid(){
-		try{
+	private boolean isTextfieldValid() {
+		try {
 			int id = Integer.parseInt(loanDetailView.getTxtFldExemplarId().getText());
-			for (Copy actualCopy : lib.getAvailableCopies()){
-				if(id == actualCopy.getInventoryNumber()){
+			for (Copy actualCopy : lib.getAvailableCopies()) {
+				if (id == actualCopy.getInventoryNumber()) {
 					return true;
 				}
 			}
 			return false;
-		}
-		catch (NumberFormatException ne){
+		} catch (NumberFormatException ne) {
 			return false;
 		}
 	}
 
-
-
 	private void updateUI() {
 		loanDetailView.getLoanTable().updateUI();
-
 
 	}
 
@@ -197,7 +186,7 @@ public class LoanDetailController implements Observer {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 	}
 
 	@Override
