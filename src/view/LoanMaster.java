@@ -124,9 +124,20 @@ public class LoanMaster {
 		return btnNeueAusleiheErfassen;
 	}
 
-	public void setNumAktuellAusgeliehen(Integer numAktuellAusgeliehen) {
-		this.numAktuellAusgeliehen.setText(numAktuellAusgeliehen.toString());
+//	public void setNumAktuellAusgeliehen(Integer numAktuellAusgeliehen) {
+//		this.numAktuellAusgeliehen.setText(numAktuellAusgeliehen.toString());
+//	}
+
+
+	public JLabel getNumAktuellAusgeliehen() {
+		return numAktuellAusgeliehen;
 	}
+
+
+	public JLabel getNumUeberfaelligeAusleihen() {
+		return numUeberfaelligeAusleihen;
+	}
+
 
 	public JPanel getContentPane() {
 		return contentPane;
@@ -140,9 +151,9 @@ public class LoanMaster {
 		return checkboxNurUeberfaellige;
 	}
 
-	public void setNumUeberfaelligeAusleihen(Integer number) {
-		numUeberfaelligeAusleihen.setText(number.toString());
-	}
+//	public void setNumUeberfaelligeAusleihen(Integer number) {
+//		numUeberfaelligeAusleihen.setText(number.toString());
+//	}
 	
 
 }

@@ -6,10 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -19,6 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import view.LoanDetailView;
 import view.LoanMaster;
 import domain.Library;
@@ -105,6 +109,7 @@ public class LoanMasterController implements Observer {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
+				if(rowIndex >= getRowCount() - 1) return null;
 				Loan actualLoan = lib.getActualLoans().get(rowIndex);
 				switch (columnIndex) {
 				case 0:
@@ -180,11 +185,18 @@ public class LoanMasterController implements Observer {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public void setTableItems(){
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
+		List<RowFilter<Object,Object>> filterArray = new ArrayList<RowFilter<Object,Object>>(2);
+		
 		loanMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(loanMaster.getTable().getModel());
 		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + loanMaster.getSearchTextField().getText()));
+		
+		RowFilter<Object, Object> regexFilter = (RowFilter<Object, Object>) sorter.getRowFilter();
+		filterArray.add(regexFilter);
+		
 
 		//Wenn checkbox selektiert wird
 		if (loanMaster.getCheckboxNurUeberfaellige().isSelected()){
@@ -194,15 +206,18 @@ public class LoanMasterController implements Observer {
 					return lib.getActualLoans().get(i).isOverdue();
 				}
 			};
-			sorter.setRowFilter(filter);
+			filterArray.add(filter);
+			RowFilter<Object, Object> combinedFilter = RowFilter.andFilter(filterArray);
+			sorter.setRowFilter(combinedFilter);
+			
 		} 
 
 	}
 
 
 	private void updateUI() {
-		loanMaster.setNumAktuellAusgeliehen(lib.getActualLoans().size());
-		loanMaster.setNumUeberfaelligeAusleihen(lib.getOverdueLoans().size());
+		loanMaster.getNumAktuellAusgeliehen().setText(new Integer(lib.getActualLoans().size()).toString());
+		loanMaster.getNumUeberfaelligeAusleihen().setText(new Integer(lib.getOverdueLoans().size()).toString());
 
 		// Tabelle ins Frame
 		loanMaster.getTable().updateUI();

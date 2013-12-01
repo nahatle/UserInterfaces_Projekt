@@ -155,16 +155,7 @@ public class BookMasterController implements Observer {
 		bookMaster.getTable().setRowHeight(TABLE_ROWHEIGHT);
 		bookMaster.getTable().setGridColor(Color.lightGray);
 		
-//		bookMaster.getTable().setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-//
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//                c.setBackground(row % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
-//                return c;
-//            }
-//        });
-		
+
 		bookMaster.getTextField().getDocument().addDocumentListener(new DocumentListener() {
 			
 			@Override

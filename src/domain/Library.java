@@ -119,6 +119,16 @@ public class Library extends Observable {
 		}
 		return lentCopies;
 		
+	} 
+	
+	public boolean hasCustomerOverduedLoans(Customer customer){
+		List<Loan> overduedCopies = new ArrayList<Loan>();
+		for (Loan l : loans) {
+			if (l.getCustomer().equals(customer) && l.isLent() && l.isOverdue()) {
+				overduedCopies.add(l);
+			}
+		}
+		return overduedCopies.size() > 0;
 	}
 	
 	public List<Loan> getOverdueLoans() {
@@ -172,6 +182,13 @@ public class Library extends Observable {
 		return actualLoans;
 	}
 
+	public void removeFromActualLoanList(Loan loanToRemove){
+		for(Loan actualLoan : loans){
+			if(actualLoan.getCopy().getInventoryNumber() == loanToRemove.getCopy().getInventoryNumber()){
+				loans.remove(actualLoan);
+			}
+		}
+	}
 
 	public List<Book> getBooks() {
 		return books;

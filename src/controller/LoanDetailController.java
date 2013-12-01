@@ -6,11 +6,15 @@ import java.awt.event.WindowListener;
 import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+
 import view.LoanDetailView;
 import domain.Copy;
 import domain.Customer;
@@ -145,15 +149,28 @@ public class LoanDetailController implements Observer {
 
 				int[] selectedRows = loanDetailView.getLoanTable().getSelectedRows();
 				lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(selectedRows[0]).setReturnDate(new GregorianCalendar());
-
 				updateUI();
 			}
 		});
-
+		
+		//Exemplarbutton erst aktivieren, wenn etwas selektiert in der Tabelle
+		loanDetailView.getBtnExemplarRueckgabe().setEnabled(false);
+		loanDetailView.getLoanTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if(loanDetailView.getLoanTable().getSelectedRows().length > 0){
+					loanDetailView.getBtnExemplarRueckgabe().setEnabled(true);
+				} else {
+					loanDetailView.getBtnExemplarRueckgabe().setEnabled(false);
+				}
+			}
+		});
+		
 		loanDetailView.setLblFktAnzAusleihen(Integer.valueOf(lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size()));
+		}
 
-	}
-	
+
 	//Benutzer in die Combobox setzen
 	public void setCustomerInCombobox(Loan selectedLoan) {
 		loanDetailView.getComboBox().setSelectedItem(selectedLoan.getCustomer());
@@ -164,7 +181,7 @@ public class LoanDetailController implements Observer {
 		try{
 			int id = Integer.parseInt(loanDetailView.getTxtFldExemplarId().getText());
 			for (Copy actualCopy : lib.getAvailableCopies()){
-				if(id == actualCopy.getInventoryNumber()){
+				if(id == actualCopy.getInventoryNumber() && (lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size() < 3) && !lib.hasCustomerOverduedLoans((Customer) (loanDetailView.getComboBox().getSelectedItem()))){
 					return true;
 				}
 			}
@@ -179,8 +196,6 @@ public class LoanDetailController implements Observer {
 
 	private void updateUI() {
 		loanDetailView.getLoanTable().updateUI();
-
-
 	}
 
 	public void displayFrame() {
