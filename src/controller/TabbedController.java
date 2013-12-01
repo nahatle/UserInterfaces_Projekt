@@ -33,6 +33,8 @@ public class TabbedController {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Keyboard Action Listener fuer Tabs
 		tabbedPane.registerKeyboardAction(new AbstractAction() {
 			
 			private static final long serialVersionUID = 1L;

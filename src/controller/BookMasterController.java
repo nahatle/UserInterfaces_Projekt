@@ -145,9 +145,7 @@ public class BookMasterController implements Observer {
 			}
 
 		});
-//		TableColumn column0 = bookMaster.getTable().getColumnModel().getColumn(0);
-//		column0.setCellRenderer(new TableRowRenderer());
-		//bookMaster.getTable().getColumnModel().getColumn(0).setCellRenderer(new TableRowRenderer());
+
 		bookMaster.getTable().setDefaultRenderer(Object.class, new TableRowRenderer());
 		bookMaster.getTable().setDefaultRenderer(Integer.class, new TableRowRenderer());
 		bookMaster.getTable().setShowVerticalLines(true);

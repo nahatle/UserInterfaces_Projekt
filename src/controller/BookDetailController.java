@@ -155,12 +155,7 @@ public class BookDetailController implements Observer{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			if (!bookDetail.isNew()){
 				lib.createAndAddCopy(selectedBook);
-//			}else{
-//				bookDetail.getBtnExemplarKopieren().setEnabled(false);
-//			}
-			
 		}
 	});
 	 
@@ -220,7 +215,6 @@ public class BookDetailController implements Observer{
 					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getInventoryNumber();
 				case 1:
 					return lib.getCopiesOfBook(selectedBook).get(rowIndex).getCondition();
-//					return lib.get
 				}
 				return 0;
 			}
@@ -239,7 +233,7 @@ public class BookDetailController implements Observer{
 			public int getColumnCount() {		
 				return names.length;
 			}
-			//haxxorcode vom charri: Cell 1 editable machen
+			//Zelle 1 editable machen
 			@Override
 			public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 				if(columnIndex != 1 || !(aValue instanceof Copy.Condition)){
@@ -261,7 +255,7 @@ public class BookDetailController implements Observer{
 				return columnIndex == 1;
 			}
 	});
-	 	//Charri:  neue Combobox in zelle 1 einfuegen mit den Conditions
+	 	//neue Combobox in zelle 1 einfuegen mit den Conditions
 	 	TableColumnModel tableColumn = bookDetail.getConditionTable().getColumnModel(); 
 		tableColumn.getColumn(1).setCellEditor(
 				new DefaultCellEditor(new JComboBox<Copy.Condition>(Copy.Condition.values()))
