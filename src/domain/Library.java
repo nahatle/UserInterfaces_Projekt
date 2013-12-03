@@ -183,9 +183,11 @@ public class Library extends Observable {
 	}
 
 	public void removeFromActualLoanList(Loan loanToRemove){
-		for(Loan actualLoan : loans){
+		ArrayList<Loan> actualLoans = (ArrayList<Loan>) getActualLoans();
+		for (int i=actualLoans.size(); i > 0; i--) {
+			Loan actualLoan = actualLoans.get(i - 1);
 			if(actualLoan.getCopy().getInventoryNumber() == loanToRemove.getCopy().getInventoryNumber()){
-				loans.remove(actualLoan);
+				actualLoans.remove(actualLoan);
 				doNotify();
 			}
 		}
