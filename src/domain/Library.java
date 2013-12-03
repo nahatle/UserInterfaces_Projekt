@@ -186,6 +186,7 @@ public class Library extends Observable {
 		for(Loan actualLoan : loans){
 			if(actualLoan.getCopy().getInventoryNumber() == loanToRemove.getCopy().getInventoryNumber()){
 				loans.remove(actualLoan);
+				doNotify();
 			}
 		}
 	}

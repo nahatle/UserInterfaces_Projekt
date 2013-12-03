@@ -14,9 +14,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-
-import com.sun.javafx.scene.control.SelectedCellsMap;
-
 import view.LoanDetailView;
 import domain.Copy;
 import domain.Copy.Condition;
@@ -154,6 +151,7 @@ public class LoanDetailController implements Observer {
 
 				int[] selectedRows = loanDetailView.getLoanTable().getSelectedRows();
 				lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).get(selectedRows[0]).setReturnDate(new GregorianCalendar());
+				lib.removeFromActualLoanList(selectedLoan);
 				updateUI();
 			}
 		});
@@ -173,6 +171,7 @@ public class LoanDetailController implements Observer {
 		});
 		
 		loanDetailView.setLblFktAnzAusleihen(Integer.valueOf(lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size()));
+		
 		}
 
 

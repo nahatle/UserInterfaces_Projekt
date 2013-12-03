@@ -55,6 +55,7 @@ public class Loan extends Observable{
 	
 	public void setReturnDate(GregorianCalendar returnDate){
 		this.returnDate = returnDate;
+		doNotify();
 	}
 
 	public GregorianCalendar getReturnDate() {
@@ -118,6 +119,11 @@ public class Loan extends Observable{
 		dueDate.add(GregorianCalendar.SECOND, 59);
 		
 		return dueDate;
+	}
+	
+	private void doNotify(){
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }

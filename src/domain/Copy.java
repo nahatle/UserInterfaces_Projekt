@@ -28,9 +28,14 @@ public class Copy extends Observable {
 
 	public void setCondition(Condition condition) {
 		this.condition = condition;
+		doNotify();
 	}
 
 	public long getInventoryNumber() {
 		return inventoryNumber;
+	}
+	private void doNotify(){
+		setChanged();
+		notifyObservers(this);
 	}
 }
