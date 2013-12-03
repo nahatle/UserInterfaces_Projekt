@@ -15,8 +15,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import com.sun.javafx.scene.control.SelectedCellsMap;
+
 import view.LoanDetailView;
 import domain.Copy;
+import domain.Copy.Condition;
 import domain.Customer;
 import domain.Library;
 import domain.Loan;
@@ -27,6 +30,7 @@ public class LoanDetailController implements Observer {
 	private final LoanDetailView loanDetailView;
 	private final EscapableFrame frame;
 	private final String[] names = { "Exemplar-ID", "Titel", "Author" };
+	private Loan selectedLoan;
 
 
 	public LoanDetailController(Library library, LoanDetailView loanDetailView) {
@@ -42,6 +46,7 @@ public class LoanDetailController implements Observer {
 	public LoanDetailController(Library library, LoanDetailView loanDetailView, Loan selectedLoan) {
 		frame = new EscapableFrame();
 		this.lib = library;
+		this.selectedLoan = selectedLoan;
 		lib.addObserver(this);
 		this.loanDetailView = loanDetailView;
 		lib.addObserver(this);
@@ -181,7 +186,7 @@ public class LoanDetailController implements Observer {
 		try{
 			int id = Integer.parseInt(loanDetailView.getTxtFldExemplarId().getText());
 			for (Copy actualCopy : lib.getAvailableCopies()){
-				if(id == actualCopy.getInventoryNumber() && (lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size() < 3) && !lib.hasCustomerOverduedLoans((Customer) (loanDetailView.getComboBox().getSelectedItem()))){
+				if(id == actualCopy.getInventoryNumber() && selectedLoan.getCopy().getCondition() != Condition.LOST && (lib.getActiveCustomerLoans((Customer) (loanDetailView.getComboBox().getSelectedItem())).size() < 3) && !lib.hasCustomerOverduedLoans((Customer) (loanDetailView.getComboBox().getSelectedItem()))){
 					return true;
 				}
 			}
