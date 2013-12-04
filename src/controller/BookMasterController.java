@@ -8,6 +8,8 @@ import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
+
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -16,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import view.BookDetail;
 import view.BookMaster;
 import domain.Book;
@@ -191,7 +194,7 @@ public class BookMasterController implements Observer {
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>();
 		bookMaster.getTable().setRowSorter(sorter);	
 		sorter.setModel(bookMaster.getTable().getModel());
-		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + bookMaster.getTextField().getText()));
+		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(bookMaster.getTextField().getText())));
 		
 		//Wenn checkbox selektiert wird
 		if (bookMaster.getCheckBoxNurVerfuegbare().isSelected()){

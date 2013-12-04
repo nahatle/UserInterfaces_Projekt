@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
@@ -192,7 +193,7 @@ public class LoanMasterController implements Observer {
 		
 		loanMaster.getTable().setRowSorter(sorter);
 		sorter.setModel(loanMaster.getTable().getModel());
-		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + loanMaster.getSearchTextField().getText()));
+		sorter.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(loanMaster.getSearchTextField().getText())));
 		
 		RowFilter<Object, Object> regexFilter = (RowFilter<Object, Object>) sorter.getRowFilter();
 		filterArray.add(regexFilter);
